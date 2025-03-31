@@ -133,3 +133,4 @@ dist
 
 .vitepress/dist
 .vitepress/cache
+/package-lock.json
