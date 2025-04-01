@@ -13,5 +13,8 @@
   "license": "MIT",
   "devDependencies": {
     "vitepress": "^1.6.3"
+  },
+  "dependencies": {
+    "@lpkitvue/alert": "^1.0.5"
   }
 }
