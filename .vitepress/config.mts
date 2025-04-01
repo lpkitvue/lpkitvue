@@ -16,6 +16,7 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: '/assets/logo.png',
+    siteTitle: 'LPKitVue',
 
     nav: [
       { text: 'Home', link: '/' },
