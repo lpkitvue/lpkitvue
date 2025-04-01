@@ -15,6 +15,7 @@
     "vitepress": "^1.6.3"
   },
   "dependencies": {
-    "@lpkitvue/alert": "^1.0.5"
+    "@lpkitvue/alert": "^1.0.5",
+    "@lpkitvue/toast": "^1.0.2"
   }
 }
