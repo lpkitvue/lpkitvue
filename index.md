@@ -14,7 +14,7 @@ hero:
       text: View on GitHub
       link: https://github.com/lpkitvue/lpkitvue
   image:
-    src: /assets/logo-big.png
+    src: /logo-big.png
     alt: LPKitVue Logo
 features:
   - icon: 🧩

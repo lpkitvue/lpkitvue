@@ -10,12 +10,12 @@ export default defineConfig({
     ['meta', { name: 'og:type', content: 'website' }],
     ['meta', { name: 'og:title', content: 'LPKitVue' }],
     ['meta', { name: 'og:description', content: 'A comprehensive Vue 3 component library' }],
-    ['meta', { name: 'og:image', content: '/assets/logo.png' }],
+    ['meta', { name: 'og:image', content: '/logo.png' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
   ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    logo: '/assets/logo.png',
+    logo: '/logo.png',
     siteTitle: 'LPKitVue',
 
     nav: [
@@ -46,49 +46,49 @@ export default defineConfig({
               text: 'Feedback',
               collapsed: false,
               items: [
-                { text: 'Alert', link: '/components/alert' },
-                { text: 'Toast', link: '/components/toast' },
+                { text: 'Alert', link: '/components/feedback/alert' },
+                { text: 'Toast', link: '/components/feedback/toast' },
               ]
             },
             {
               text: 'Inputs & Forms',
               collapsed: false,
               items: [
-                { text: 'Button', link: '/components/button' },
-                { text: 'Form', link: '/components/form' },
-                { text: 'Editor', link: '/components/editor' },
+                { text: 'Button', link: '/components/input-and-form/button' },
+                { text: 'Form', link: '/components/input-and-form/form' },
+                { text: 'Editor', link: '/components/input-and-form/editor' },
               ]
             },
             {
               text: 'Layout',
               collapsed: false,
               items: [
-                { text: 'Card', link: '/components/card' },
-                { text: 'Modal', link: '/components/modal' },
-                { text: 'Tab', link: '/components/tab' },
+                { text: 'Card', link: '/components/layout/card' },
+                { text: 'Modal', link: '/components/layout/modal' },
+                { text: 'Tab', link: '/components/layout/tab' },
               ]
             },
             {
               text: 'Navigation',
               collapsed: false,
               items: [
-                { text: 'Bread-Tag', link: '/components/bread-tag' },
+                { text: 'Bread-Tag', link: '/components/navigation/bread-tag' },
               ]
             },
             {
               text: 'Data Display',
               collapsed: false,
               items: [
-                { text: 'Font-Icon', link: '/components/font-icon' },
-                { text: 'Overlay', link: '/components/overlay' },
+                { text: 'Font-Icon', link: '/components/data-display/font-icon' },
+                { text: 'Overlay', link: '/components/data-display/overlay' },
               ]
             },
             {
               text: 'Services',
               collapsed: false,
               items: [
-                { text: 'Keycloak-Auth', link: '/components/keycloak-auth' },
-                { text: 'Storage', link: '/components/storage' },
+                { text: 'Keycloak-Auth', link: '/components/service/keycloak-auth' },
+                { text: 'Storage', link: '/components/service/storage' },
               ]
             },
           ]
