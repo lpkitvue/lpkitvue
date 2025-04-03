@@ -115,7 +115,7 @@ export default defineConfig({
     },
 
     editLink: {
-      pattern: 'https://github.com/lpkitvue/lpkitvue-component/edit/main/docs/:path',
+      pattern: 'https://github.com/lpkitvue/lpkitvue/edit/main/:path',
       text: 'Edit this page on GitHub'
     },
 
