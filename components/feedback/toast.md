@@ -21,12 +21,7 @@ The Toast component provides a simple yet powerful way to show feedback messages
 - 🧩 Global configuration options
 - 🔌 Vue plugin for easy app-wide integration
 
-
 ## Live Examples
-
-To see the Toast component in action, you will need to run the example in your own Vue application. The documentation site cannot directly show toast notifications because they require Vue component registration and mounting.
-
-Here's an example you can copy into your own project:
 
 <script setup>
 import { useToast, LpToast } from '@lpkitvue/toast';
@@ -86,25 +81,20 @@ const showPersistentToast = () => {
 };
 </script>
 
-<div>
-  <div class="buttons">
-    <button @click="showSuccessToast" class="success">Success</button>
-    <button @click="showErrorToast" class="error">Error</button>
-    <button @click="showWarningToast" class="warning">Warning</button>
-    <button @click="showInfoToast" class="info">Info</button>
-    <button @click="showPersistentToast" class="persistent">Persistent</button>
-  </div>
-<LpToast />
+<div class="toast-demo">
+    <div class="buttons">
+      <button @click="showSuccessToast" class="success">Success</button>
+      <button @click="showErrorToast" class="error">Error</button>
+      <button @click="showWarningToast" class="warning">Warning</button>
+      <button @click="showInfoToast" class="info">Info</button>
+      <button @click="showPersistentToast" class="persistent">Persistent</button>
+    </div>
+  <LpToast />
 </div>
 
 ::: info Note
 Remember to import both the `useToast` composable and the `LpToast` component. The `LpToast` component must be included in your template for the toast notifications to appear.
 :::
-
-This example allows you to:
-- Select a position for your toasts using the dropdown
-- Try different toast types with the buttons
-- See a persistent toast with an action button
 
 ## Installation
 
@@ -124,7 +114,6 @@ import '@lpkitvue/toast/dist/toast.css';
 import { createApp } from 'vue';
 import App from './App.vue';
 import { ToastPlugin } from '@lpkitvue/toast';
-import '@lpkitvue/toast/dist/toast.css';
 
 const app = createApp(App);
 
@@ -354,10 +343,3 @@ The toast component follows accessibility best practices:
 - Provides proper focus management
 - Ensures sufficient color contrast
 - Supports keyboard interaction with close and action buttons
-
-## Browser Compatibility
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
