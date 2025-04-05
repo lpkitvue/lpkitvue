@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@lpkitvue/alert": "1.0.7",
-    "@lpkitvue/button": "1.0.5",
+    "@lpkitvue/button": "1.0.6",
     "@lpkitvue/toast": "1.0.3",
     "cache": "^3.0.0",
     "clean": "^4.0.2",

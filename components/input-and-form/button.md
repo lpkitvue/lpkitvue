@@ -49,7 +49,6 @@ const toggleLoading = () => {
 };
 </script>
 
-### Button Variants
 
 <div class="button-demo" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
   <TableAddButton text="Add" @click="() => handleClick('Add')" />
@@ -59,9 +58,6 @@ const toggleLoading = () => {
   <SubmitButton text="Submit" @click="() => handleClick('Submit')" />
   <IconButton text="Save" icon="save" @click="() => handleClick('Save')" />
 </div>
-
-### Button Styles
-
 <div class="button-demo" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem;">
   <Button text="Primary" className="btn-primary" @click="() => handleClick('Primary')" />
   <Button text="Secondary" className="btn-secondary" @click="() => handleClick('Secondary')" />
@@ -72,31 +68,19 @@ const toggleLoading = () => {
   <Button text="Dark" className="btn-dark" @click="() => handleClick('Dark')" />
   <Button text="Light" className="btn-light" @click="() => handleClick('Light')" />
 </div>
-
-### Button Sizes
-
 <div class="button-demo" style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 2rem;">
   <Button text="Small" size="sm" className="btn-primary" @click="() => handleClick('Small')" />
   <Button text="Medium" size="md" className="btn-primary" @click="() => handleClick('Medium')" />
   <Button text="Large" size="lg" className="btn-primary" @click="() => handleClick('Large')" />
 </div>
-
-### Button with Icons
-
 <div class="button-demo" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem;">
   <Button text="Left Icon" icon="check" iconPosition="left" className="btn-primary" @click="() => handleClick('Left Icon')" />
   <Button text="Right Icon" icon="arrow-right" iconPosition="right" className="btn-primary" @click="() => handleClick('Right Icon')" />
 </div>
-
-### Loading State
-
 <div class="button-demo" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem;">
   <SubmitButton text="Submit" :loading="isLoading" className="btn-primary" @click="toggleLoading" />
   <SubmitButton text="Loading" :loading="true" className="btn-primary" />
 </div>
-
-### Button Group
-
 <div class="button-demo" style="margin-bottom: 2rem;">
   <ButtonGroup>
     <TableAddButton text="Add" @click="() => handleClick('Add')" />
@@ -104,9 +88,6 @@ const toggleLoading = () => {
     <TableExcelButton text="Export" @click="() => handleClick('Export')" />
   </ButtonGroup>
 </div>
-
-### Disabled Buttons
-
 <div class="button-demo" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem;">
   <IconButton text="Disabled" className="btn-primary" :disabled="true" />
   <SubmitButton text="Disabled" className="btn-success" :disabled="true" />
@@ -129,58 +110,58 @@ import '@lpkitvue/button/dist/index.css';
 
 ```vue
 <script setup>
-import '@lpkitvue/button/dist/index.css';
-import { 
-  TableAddButton, 
-  SubmitButton, 
-  ClearButton,
-  IconButton 
-} from '@lpkitvue/button';
+    import '@lpkitvue/button/dist/index.css';
+    import {
+        TableAddButton,
+        SubmitButton,
+        ClearButton,
+        IconButton
+    } from '@lpkitvue/button';
 
-const handleAdd = () => {
-  // Add item logic
-};
+    const handleAdd = () => {
+        // Add item logic
+    };
 
-const handleSubmit = () => {
-  // Form submission logic
-};
+    const handleSubmit = () => {
+        // Form submission logic
+    };
 
-const handleClear = () => {
-  // Clear form logic
-};
+    const handleClear = () => {
+        // Clear form logic
+    };
 </script>
 
 <template>
-  <!-- Table action buttons -->
-  <div class="table-actions">
-    <TableAddButton 
-      text="Add Item" 
-      className="btn-primary" 
-      :onClick="handleAdd" 
-    />
-  </div>
-  
-  <!-- Form buttons -->
-  <div class="form-actions">
-    <ClearButton 
-      text="Clear Form" 
-      :onClick="handleClear" 
-    />
-    
-    <SubmitButton 
-      text="Submit" 
-      type="submit" 
-      :loading="isLoading"
-    />
-  </div>
+    <!-- Table action buttons -->
+    <div class="table-actions">
+        <TableAddButton
+            text="Add Item"
+            className="btn-primary"
+            :onClick="handleAdd"
+        />
+    </div>
 
-  <!-- Icon button -->
-  <IconButton
-    text="Download"
-    icon="download"
-    className="btn-primary"
-    :onClick="handleDownload"
-  />
+    <!-- Form buttons -->
+    <div class="form-actions">
+        <ClearButton
+            text="Clear Form"
+            :onClick="handleClear"
+        />
+
+        <SubmitButton
+            text="Submit"
+            type="submit"
+            :loading="isLoading"
+        />
+    </div>
+
+    <!-- Icon button -->
+    <IconButton
+        text="Download"
+        icon="download"
+        className="btn-primary"
+        :onClick="handleDownload"
+    />
 </template>
 ```
 
@@ -192,11 +173,11 @@ Group related buttons together with `ButtonGroup` component:
 
 ```vue
 <template>
-  <ButtonGroup>
-    <TableAddButton text="Add" @click="handleAdd" />
-    <TableFilterButton text="Filter" @click="handleFilter" />
-    <TableExcelButton text="Export" @click="handleExport" />
-  </ButtonGroup>
+    <ButtonGroup>
+        <TableAddButton text="Add" @click="handleAdd" />
+        <TableFilterButton text="Filter" @click="handleFilter" />
+        <TableExcelButton text="Export" @click="handleExport" />
+    </ButtonGroup>
 </template>
 ```
 
@@ -204,11 +185,11 @@ Group related buttons together with `ButtonGroup` component:
 
 ```vue
 <template>
-  <ButtonGroup vertical>
-    <IconButton text="Edit" icon="edit" className="btn-primary" />
-    <IconButton text="Delete" icon="trash" className="btn-danger" />
-    <IconButton text="Share" icon="share" className="btn-info" />
-  </ButtonGroup>
+    <ButtonGroup vertical>
+        <IconButton text="Edit" icon="edit" className="btn-primary" />
+        <IconButton text="Delete" icon="trash" className="btn-danger" />
+        <IconButton text="Share" icon="share" className="btn-info" />
+    </ButtonGroup>
 </template>
 ```
 
@@ -216,8 +197,8 @@ Group related buttons together with `ButtonGroup` component:
 
 ```vue
 <template>
-  <IconButton text="Outline Button" className="btn-outline-primary" />
-  <IconButton text="Outline Button" className="btn-outline-danger" />
+    <IconButton text="Outline Button" className="btn-outline-primary" />
+    <IconButton text="Outline Button" className="btn-outline-danger" />
 </template>
 ```
 
@@ -225,32 +206,32 @@ Group related buttons together with `ButtonGroup` component:
 
 ```vue
 <script setup>
-import { ref } from 'vue';
-import { SubmitButton } from '@lpkitvue/button';
+    import { ref } from 'vue';
+    import { SubmitButton } from '@lpkitvue/button';
 
-const isLoading = ref(false);
+    const isLoading = ref(false);
 
-const handleAsyncAction = async () => {
-  isLoading.value = true;
-  
-  try {
-    // Perform async operation
-    await someAsyncOperation();
-  } catch (error) {
-    // Handle error
-    console.error(error);
-  } finally {
-    isLoading.value = false;
-  }
-};
+    const handleAsyncAction = async () => {
+        isLoading.value = true;
+
+        try {
+            // Perform async operation
+            await someAsyncOperation();
+        } catch (error) {
+            // Handle error
+            console.error(error);
+        } finally {
+            isLoading.value = false;
+        }
+    };
 </script>
 
 <template>
-  <SubmitButton 
-    text="Save Changes" 
-    :loading="isLoading" 
-    @click="handleAsyncAction" 
-  />
+    <SubmitButton
+        text="Save Changes"
+        :loading="isLoading"
+        @click="handleAsyncAction"
+    />
 </template>
 ```
 
@@ -278,10 +259,10 @@ All button components share these common props:
 Button with a plus icon for adding items.
 
 ```vue
-<TableAddButton 
-  text="Add Item" 
-  className="btn-primary"
-  :onClick="handleAdd" 
+<TableAddButton
+    text="Add Item"
+    className="btn-primary"
+    :onClick="handleAdd"
 />
 ```
 
@@ -290,10 +271,10 @@ Button with a plus icon for adding items.
 Button with an export icon for exporting data.
 
 ```vue
-<TableExcelButton 
-  text="Export to Excel" 
-  className="btn-success"
-  :onClick="handleExport" 
+<TableExcelButton
+    text="Export to Excel"
+    className="btn-success"
+    :onClick="handleExport"
 />
 ```
 
@@ -302,10 +283,10 @@ Button with an export icon for exporting data.
 Button with a filter icon for filtering data.
 
 ```vue
-<TableFilterButton 
-  text="Filter" 
-  className="btn-light"
-  :onClick="handleFilter" 
+<TableFilterButton
+    text="Filter"
+    className="btn-light"
+    :onClick="handleFilter"
 />
 ```
 
@@ -320,10 +301,10 @@ Button for submitting forms with loading state support.
 | `loading` | `boolean` | `false` | Shows loading spinner when true |
 
 ```vue
-<SubmitButton 
-  text="Submit" 
-  type="submit"
-  :loading="isSubmitting" 
+<SubmitButton
+    text="Submit"
+    type="submit"
+    :loading="isSubmitting"
 />
 ```
 
@@ -332,9 +313,9 @@ Button for submitting forms with loading state support.
 Button for clearing form inputs.
 
 ```vue
-<ClearButton 
-  text="Clear Form" 
-  :onClick="handleClear" 
+<ClearButton
+    text="Clear Form"
+    :onClick="handleClear"
 />
 ```
 
@@ -348,11 +329,11 @@ Customizable button with icon support.
 | `iconPosition` | `'left' \| 'right'` | `'left'` | Position of the icon relative to text |
 
 ```vue
-<IconButton 
-  text="Save" 
-  icon="save" 
-  className="btn-primary" 
-  :onClick="handleSave" 
+<IconButton
+    text="Save"
+    icon="save"
+    className="btn-primary"
+    :onClick="handleSave"
 />
 ```
 
@@ -367,8 +348,8 @@ Container for grouping related buttons.
 
 ```vue
 <ButtonGroup spacing="md">
-  <TableAddButton text="Add" />
-  <TableFilterButton text="Filter" />
+    <TableAddButton text="Add" />
+    <TableFilterButton text="Filter" />
 </ButtonGroup>
 ```
 
@@ -404,11 +385,11 @@ import type { ButtonTypes, ClassnameTypes } from '@lpkitvue/button';
 
 // Define button configuration
 const buttonConfig: ButtonTypes = {
-  text: 'Save',
-  onClick: () => console.log('Button clicked'),
-  className: 'btn-primary',
-  size: 'md',
-  disabled: false
+    text: 'Save',
+    onClick: () => console.log('Button clicked'),
+    className: 'btn-primary',
+    size: 'md',
+    disabled: false
 };
 
 // Type for class names
