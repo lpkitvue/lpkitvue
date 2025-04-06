@@ -1,7 +1,5 @@
 # Alert
 
-## Introduction
-
 The Alert component is designed to provide feedback messages and notifications to users with different severity levels. It's a lightweight, flexible, and customizable way to display important information, success messages, warnings, or errors in your application.
 
 ## Features
