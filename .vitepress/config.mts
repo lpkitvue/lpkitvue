@@ -2,9 +2,35 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  lang: 'en-US',
   title: "LPKitVue",
   description: "A comprehensive Vue 3 component library",
   lastUpdated: true,
+  sitemap: {
+    hostname: 'https://lpkitvue.github.io',
+    exclude: ['/404.html', '/404'],
+    routes: [
+      { url: '/', lastmod: new Date() },
+      { url: '/guide/getting-started', lastmod: new Date() },
+      { url: '/guide/installation', lastmod: new Date() },
+      { url: '/guide/theming', lastmod: new Date() },
+      { url: '/guide/i18n', lastmod: new Date() },
+      { url: '/components/', lastmod: new Date() },
+      { url: '/components/feedback/alert', lastmod: new Date() },
+      { url: '/components/feedback/toast', lastmod: new Date() },
+      { url: '/components/input-and-form/button', lastmod: new Date() },
+      { url: '/components/input-and-form/form', lastmod: new Date() },
+      { url: '/components/input-and-form/editor', lastmod: new Date() },
+      { url: '/components/layout/card', lastmod: new Date() },
+      { url: '/components/layout/modal', lastmod: new Date() },
+      { url: '/components/layout/tab', lastmod: new Date() },
+      { url: '/components/navigation/bread-tag', lastmod: new Date() },
+      { url: '/components/data-display/font-icon', lastmod: new Date() },
+      { url: '/components/data-display/overlay', lastmod: new Date() },
+      { url: '/components/service/keycloak-auth', lastmod: new Date() },
+      { url: '/components/service/storage', lastmod: new Date() }
+    ]
+  },
   head: [
     ['link', { rel: 'icon', type: 'image/png', href: '/assets/logo.png' }],
     ['meta', { name: 'og:type', content: 'website' }],
@@ -117,11 +143,6 @@ export default defineConfig({
     editLink: {
       pattern: 'https://github.com/lpkitvue/lpkitvue/edit/main/:path',
       text: 'Edit this page on GitHub'
-    },
-
-    carbonAds: {
-      code: 'your-carbon-code',
-      placement: 'your-carbon-placement'
     },
   }
 })
