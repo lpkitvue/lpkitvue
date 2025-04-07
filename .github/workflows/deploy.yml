@@ -9,7 +9,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
-  packages: read    # GitHub packages için okuma izni ekliyoruz
+  packages: read
 
 jobs:
   build:
@@ -25,13 +25,18 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           scope: '@lpkitvue'
 
+      - name: Create .npmrc
+        run: |
+          echo "@lpkitvue:registry=https://npm.pkg.github.com" > .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
       - name: Install dependencies
         run: npm install
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Build
         run: npm run docs:build
