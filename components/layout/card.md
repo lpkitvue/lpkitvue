@@ -600,7 +600,6 @@ import type {
   TableCardButton
 } from '@lpkitvue/card';
 
-// Example of defining typed props
 const imageCardProps: ImageCardProps = {
   title: 'Product Image',
   imageUrl: '/images/product.jpg',
@@ -608,7 +607,6 @@ const imageCardProps: ImageCardProps = {
   alt: 'Product image'
 };
 
-// Example of defining table buttons with types
 const tableButtons: TableCardButton[] = [
   {
     text: 'Add New',
