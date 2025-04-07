@@ -181,3 +181,7 @@ button.error { background-color: #e7515a; }
 button.warning { background-color: #e2a03f; }
 button.info { background-color: #2196f3; }
 button.persistent { background-color: #805dca; }
+
+.breadcrumb-nav li + li {
+  margin-top: 0!important;
+}
