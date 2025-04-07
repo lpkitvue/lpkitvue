@@ -6,6 +6,7 @@ export default defineConfig({
   title: "LPKitVue",
   description: "A comprehensive Vue 3 component library",
   lastUpdated: true,
+  base: 'lpkitvue.github.io',
   sitemap: {
     hostname: 'https://lpkitvue.github.io',
     exclude: ['/404.html', '/404'],
@@ -48,6 +49,7 @@ export default defineConfig({
       { text: 'Home', link: '/' },
       { text: 'Guide', link: '/guide/getting-started' },
       { text: 'Components', link: '/components/' },
+      { text: 'License', link: '/license' },
       { text: 'GitHub', link: 'https://github.com/lpkitvue/lpkitvue' }
     ],
 
@@ -60,6 +62,7 @@ export default defineConfig({
             { text: 'Installation', link: '/guide/installation' },
             { text: 'Theming', link: '/guide/theming' },
             { text: 'Internationalization', link: '/guide/i18n' },
+            { text: 'License', link: '/license' }
           ]
         },
       ],
@@ -121,7 +124,6 @@ export default defineConfig({
         }
       ]
     },
-
     socialLinks: [
       { icon: 'github', link: 'https://github.com/lpkitvue/lpkitvue' }
     ],
