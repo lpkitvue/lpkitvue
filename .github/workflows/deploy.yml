@@ -9,10 +9,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: false
+  packages: read    # GitHub packages için okuma izni ekliyoruz
 
 jobs:
   build:
@@ -25,13 +22,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          # cache özelliğini kaldırıyoruz çünkü lock dosyası yok
+          registry-url: 'https://npm.pkg.github.com'
+          scope: 'lpkitvue'
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
       - name: Install dependencies
-        run: npm install # npm ci yerine npm install kullanıyoruz
+        run: npm install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build
         run: npm run docs:build
