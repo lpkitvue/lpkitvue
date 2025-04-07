@@ -22,21 +22,24 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@lpkitvue'
 
-      - name: Create .npmrc
+      # NPM yapılandırması için ayrı bir adım
+      - name: Configure npm
         run: |
-          echo "@lpkitvue:registry=https://npm.pkg.github.com" > .npmrc
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          echo "@lpkitvue:registry=https://npm.pkg.github.com" >> ~/.npmrc
+          npm config list
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          echo "Installing dependencies..."
+          npm install --verbose
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Build
         run: npm run docs:build
