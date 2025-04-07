@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 18
           registry-url: 'https://npm.pkg.github.com'
-          scope: 'lpkitvue'
+          scope: '@lpkitvue'
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
