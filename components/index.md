@@ -65,7 +65,7 @@ Import and use components in your Vue application:
 ```vue
 <script setup>
 import { Button } from '@lpkitvue/button';
-import '@lpkitvue/button/dist/index.css';
+import '@lpkitvue/button/dist/button.css';
 </script>
 
 <template>

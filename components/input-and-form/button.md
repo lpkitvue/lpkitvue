@@ -21,7 +21,7 @@ The Button component provides a comprehensive set of button variants designed fo
 ## Live Examples
 
 <script setup>
-import '@lpkitvue/button/dist/index.css';
+import '@lpkitvue/button/dist/button.css';
 import { 
   TableAddButton,
   TableExcelButton, 
@@ -103,14 +103,14 @@ npm install @lpkitvue/button
 Don't forget to import the CSS:
 
 ```javascript
-import '@lpkitvue/button/dist/index.css';
+import '@lpkitvue/button/dist/button.css';
 ```
 
 ## Basic Usage
 
 ```vue
 <script setup>
-    import '@lpkitvue/button/dist/index.css';
+    import '@lpkitvue/button/dist/button.css';
     import {
         TableAddButton,
         SubmitButton,

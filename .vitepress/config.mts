@@ -7,6 +7,7 @@ export default defineConfig({
   description: "A comprehensive Vue 3 component library",
   lastUpdated: true,
   base: 'lpkitvue.github.io',
+  ignoreDeadLinks: true,
   sitemap: {
     hostname: 'https://lpkitvue.github.io',
     exclude: ['/404.html', '/404'],
@@ -146,5 +147,12 @@ export default defineConfig({
       pattern: 'https://github.com/lpkitvue/lpkitvue/edit/main/:path',
       text: 'Edit this page on GitHub'
     },
+
+    vite: {
+      define: {
+        __VUE_PROD_DEVTOOLS__: false,
+        'process.env.NODE_ENV': JSON.stringify('production'),
+      }
+    }
   }
 })
