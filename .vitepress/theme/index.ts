@@ -3,7 +3,6 @@ import { h } from 'vue'
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import './style.css'
-import i18n from './i18n'
 
 export default {
   extends: DefaultTheme,
@@ -14,6 +13,6 @@ export default {
   },
   enhanceApp({ app, router, siteData }) {
     // ...
-    app.use(i18n)
+    // app.use(i18n)
   }
 } satisfies Theme

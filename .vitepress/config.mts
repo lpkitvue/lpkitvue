@@ -6,10 +6,10 @@ export default defineConfig({
   title: "LPKitVue",
   description: "A comprehensive Vue 3 component library",
   lastUpdated: true,
-  base: 'lpkitvue.github.io',
+  base: '/',
   ignoreDeadLinks: true,
   sitemap: {
-    hostname: 'https://lpkitvue.github.io',
+    // hostname: 'https://lpkitvue.github.io',
     exclude: ['/404.html', '/404'],
     routes: [
       { url: '/', lastmod: new Date() },
@@ -40,6 +40,10 @@ export default defineConfig({
     ['meta', { name: 'og:description', content: 'A comprehensive Vue 3 component library' }],
     ['meta', { name: 'og:image', content: '/logo.png' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:title', content: 'LPKitVue' }],
+    ['meta', { name: 'twitter:description', content: 'A comprehensive Vue 3 component library' }],
+    ['meta', { name: 'twitter:image', content: '/logo.png' }],
+    ['script', { src: '/scripts.js' }]
   ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
@@ -147,11 +151,14 @@ export default defineConfig({
       pattern: 'https://github.com/lpkitvue/lpkitvue/edit/main/:path',
       text: 'Edit this page on GitHub'
     },
-
-    vite: {
-      define: {
-        __VUE_PROD_DEVTOOLS__: false,
-        'process.env.NODE_ENV': JSON.stringify('production'),
+  },
+  vite: {
+    optimizeDeps: {
+      include: ['vue-select']
+    },
+    build: {
+      commonjsOptions: {
+        include: [/node_modules/]
       }
     }
   }
