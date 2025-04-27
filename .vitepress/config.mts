@@ -59,6 +59,7 @@ export default defineConfig({
     ['meta', { name: 'application-name', content: 'LPKitVue' }],
     ['meta', { name: 'apple-mobile-web-app-title', content: 'LPKitVue' }],
     ['meta', { name: 'theme-color', content: '#4361ee' }],
+    ['script', { async: true, src: 'https://www.googletagmanager.com/gtag/js?id=G-TFVL7Y9FEK' }],
   ],
 
   themeConfig: {

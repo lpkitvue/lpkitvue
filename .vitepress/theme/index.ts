@@ -15,6 +15,7 @@ export default {
   enhanceApp({ app, router, siteData }) {
     onMounted(() => {
       setupGoogleAnalytics(GA_MEASUREMENT_ID)
+      console.log('App mounted')
 
       router.onAfterRouteChanged = (to) => {
         if (window.gtag) {
