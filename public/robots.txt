@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://lpkitvue.github.io/lpkitvue/sitemap.xml
+
+# Don't index the 404 page
+Disallow: /404.html

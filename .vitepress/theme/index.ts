@@ -1,8 +1,9 @@
-// https://vitepress.dev/guide/custom-theme
-import { h } from 'vue'
-import type { Theme } from 'vitepress'
+import { h, onMounted } from 'vue'
 import DefaultTheme from 'vitepress/theme'
+import { setupGoogleAnalytics } from './analytics'
 import './style.css'
+
+const GA_MEASUREMENT_ID = 'G-TFVL7Y9FEK'
 
 export default {
   extends: DefaultTheme,
@@ -12,6 +13,17 @@ export default {
     })
   },
   enhanceApp({ app, router, siteData }) {
-    // ...
+    onMounted(() => {
+      setupGoogleAnalytics(GA_MEASUREMENT_ID)
+
+      router.onAfterRouteChanged = (to) => {
+        if (window.gtag) {
+          window.gtag('event', 'page_view', {
+            page_path: to,
+            page_title: document.title
+          })
+        }
+      }
+    })
   }
 }
