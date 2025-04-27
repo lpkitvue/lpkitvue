@@ -6,7 +6,7 @@ export default defineConfig({
   title: "LPKitVue",
   description: "A comprehensive Vue 3 component library",
   lastUpdated: true,
-  base: 'lpkitvue.github.io',
+  base: 'https://lpkitvue.github.io/lpkitvue',
   ignoreDeadLinks: true,
   sitemap: {
     hostname: 'https://lpkitvue.github.io',
