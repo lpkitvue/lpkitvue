@@ -6,10 +6,10 @@ export default defineConfig({
   title: "LPKitVue",
   description: "A comprehensive Vue 3 component library",
   lastUpdated: true,
-  base: '/',
+  base: 'lpkitvue.github.io',
   ignoreDeadLinks: true,
   sitemap: {
-    // hostname: 'https://lpkitvue.github.io',
+    hostname: 'https://lpkitvue.github.io',
     exclude: ['/404.html', '/404'],
     routes: [
       { url: '/', lastmod: new Date() },
