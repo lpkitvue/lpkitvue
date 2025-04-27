@@ -59,18 +59,6 @@ export default defineConfig({
     ],
 
     sidebar: {
-      '/guide/': [
-        {
-          text: 'Introduction',
-          items: [
-            { text: 'Getting Started', link: '/guide/getting-started' },
-            { text: 'Installation', link: '/guide/installation' },
-            { text: 'Theming', link: '/guide/theming' },
-            { text: 'Internationalization', link: '/guide/i18n' },
-            { text: 'License', link: '/license' }
-          ]
-        },
-      ],
       '/components/': [
         {
           text: 'Components',
