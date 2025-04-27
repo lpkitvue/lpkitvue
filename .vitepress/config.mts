@@ -162,29 +162,6 @@ export default defineConfig({
     editLink: {
       pattern: 'https://github.com/lpkitvue/lpkitvue/edit/main/:path',
       text: 'Edit this page on GitHub'
-    },
-
-    transformHtml: (_, id, { pageData }) => {
-      if (pageData.frontmatter.layout === 'home') {
-        return {
-          html: `<script type="application/ld+json">
-          {
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            "name": "LPKitVue",
-            "applicationCategory": "DeveloperApplication",
-            "operatingSystem": "Any",
-            "description": "A comprehensive Vue 3 component library with accessible, customizable components",
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "USD"
-            }
-          }
-          </script>`,
-          tags: []
-        }
-      }
     }
   },
   vite: {
