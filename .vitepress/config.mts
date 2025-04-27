@@ -93,6 +93,14 @@ export default defineConfig({
               ]
             },
             {
+              text: 'Table',
+              collapsed: false,
+              items: [
+                { text: 'Static Table', link: '/components/table/static-table' },
+                { text: 'Asynchronous Table', link: '/components/table/async-table' },
+              ]
+            },
+            {
               text: 'Data Display',
               collapsed: false,
               items: [

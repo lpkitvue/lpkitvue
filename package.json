@@ -28,6 +28,7 @@
     "@lpkitvue/overlay": "latest",
     "@lpkitvue/storage": "latest",
     "@lpkitvue/tab": "latest",
+    "@lpkitvue/table": "^1.0.2",
     "@lpkitvue/toast": "latest",
     "cache": "^3.0.0",
     "clean": "^4.0.2",

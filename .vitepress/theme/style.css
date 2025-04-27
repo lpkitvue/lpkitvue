@@ -68,6 +68,8 @@
   --vp-c-danger-2: var(--vp-c-red-2);
   --vp-c-danger-3: var(--vp-c-red-3);
   --vp-c-danger-soft: var(--vp-c-red-soft);
+
+  --color-border: black;
 }
 
 /**
@@ -184,4 +186,8 @@ button.persistent { background-color: #805dca; }
 
 .breadcrumb-nav li + li {
   margin-top: 0!important;
+}
+
+.pagination-list {
+  list-style: none !important;
 }
