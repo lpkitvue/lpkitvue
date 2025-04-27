@@ -13,10 +13,6 @@ export default defineConfig({
     exclude: ['/404.html', '/404'],
     routes: [
       { url: '/', lastmod: new Date() },
-      { url: '/guide/getting-started', lastmod: new Date() },
-      { url: '/guide/installation', lastmod: new Date() },
-      { url: '/guide/theming', lastmod: new Date() },
-      { url: '/guide/i18n', lastmod: new Date() },
       { url: '/components/', lastmod: new Date() },
       { url: '/components/feedback/alert', lastmod: new Date() },
       { url: '/components/feedback/toast', lastmod: new Date() },
@@ -52,7 +48,6 @@ export default defineConfig({
 
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Guide', link: '/guide/getting-started' },
       { text: 'Components', link: '/components/' },
       { text: 'License', link: '/license' },
       { text: 'GitHub', link: 'https://github.com/lpkitvue/lpkitvue' }
