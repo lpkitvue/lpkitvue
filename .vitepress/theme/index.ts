@@ -13,6 +13,5 @@ export default {
   },
   enhanceApp({ app, router, siteData }) {
     // ...
-    // app.use(i18n)
   }
-} satisfies Theme
+}

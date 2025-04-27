@@ -154,12 +154,25 @@ export default defineConfig({
   },
   vite: {
     optimizeDeps: {
-      include: ['vue-select']
+      include: ['vue-select'],
+    },
+    ssr: {
+      noExternal: ['vue-select', '@lpkitvue/button', '@lpkitvue/alert', '@lpkitvue/table'],
     },
     build: {
       commonjsOptions: {
-        include: [/node_modules/]
+        transformMixedEsModules: true,
       }
+    },
+    rollupOptions: {
+      external: ['vue', 'vue-i18n', 'vue-select'],
+      output: {
+        globals: {
+          vue: 'Vue',
+          'vue-i18n': 'VueI18n',
+          'vue-select': 'VueSelect',
+        },
+      },
     }
   }
 })
