@@ -140,7 +140,7 @@ export default defineConfig({
       include: ['vue-select'],
     },
     ssr: {
-      noExternal: ['vue-select', '@lpkitvue/button', '@lpkitvue/alert', '@lpkitvue/table'],
+      noExternal: ['vue-select', '@lpkitvue/button', '@lpkitvue/alert', '@lpkitvue/table', '@lpkitvue/modal'],
     },
     build: {
       commonjsOptions: {

@@ -22,6 +22,7 @@
     "@lpkitvue/editor": "latest",
     "@lpkitvue/font-icon": "latest",
     "@lpkitvue/keycloak-auth": "latest",
+    "@lpkitvue/modal": "^1.0.2",
     "@lpkitvue/overlay": "latest",
     "@lpkitvue/storage": "latest",
     "@lpkitvue/tab": "latest",
