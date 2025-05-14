@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /guide/getting-started
+      link: /components
     - theme: alt
       text: View on GitHub
       link: https://github.com/lpkitvue/lpkitvue
