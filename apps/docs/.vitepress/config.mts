@@ -1,5 +1,3 @@
-// SEO Enhancements for .vitepress/config.mts
-
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
@@ -9,6 +7,8 @@ export default defineConfig({
   lastUpdated: true,
   base: '/lpkitvue/',
   ignoreDeadLinks: true,
+  cleanUrls: true,
+
   sitemap: {
     hostname: 'https://lpkitvue.github.io',
     changefreq: 'weekly',
@@ -55,11 +55,17 @@ export default defineConfig({
     ['meta', { name: 'twitter:description', content: 'A comprehensive Vue 3 component library with accessible, customizable components for modern web applications' }],
     ['meta', { name: 'twitter:image', content: 'https://lpkitvue.github.io/lpkitvue/twitter-card.png' }],
     ['meta', { name: 'author', content: 'LPKitVue Team' }],
-    ['meta', { name: 'keywords', content: 'vue, vue3, components, ui library, vue components, typescript, frontend, web development, react components' }],
+    ['meta', { name: 'keywords', content: 'vue, vue3, components, ui library, vue components, typescript, frontend, web development, design system' }],
     ['meta', { name: 'application-name', content: 'LPKitVue' }],
     ['meta', { name: 'apple-mobile-web-app-title', content: 'LPKitVue' }],
     ['meta', { name: 'theme-color', content: '#4361ee' }],
     ['script', { async: true, src: 'https://www.googletagmanager.com/gtag/js?id=G-TFVL7Y9FEK' }],
+    ['script', {}, `
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-TFVL7Y9FEK');
+    `],
     ['script', {}, `
       (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
       new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -74,95 +80,125 @@ export default defineConfig({
   ],
 
   themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
     logo: '/logo.png',
     siteTitle: 'LPKitVue',
 
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Components', link: '/components/' },
+      {
+        text: 'Development',
+        items: [
+          { text: 'Storybook', link: '/lpkitvue/storybook/', target: '_blank' },
+          { text: 'Contributing', link: '/contributing' },
+          { text: 'Changelog', link: '/changelog' }
+        ]
+      },
       { text: 'License', link: '/license' },
-      { text: 'GitHub', link: 'https://github.com/lpkitvue/lpkitvue' }
+      { text: 'GitHub', link: 'https://github.com/lpkitvue/lpkitvue', target: '_blank' }
     ],
 
     sidebar: {
       '/components/': [
         {
-          text: 'Components',
+          text: 'Getting Started',
           items: [
             { text: 'Overview', link: '/components/' },
-            {
-              text: 'Feedback',
-              collapsed: false,
-              items: [
-                { text: 'Alert', link: '/components/feedback/alert' },
-                { text: 'Toast', link: '/components/feedback/toast' },
-              ]
-            },
-            {
-              text: 'Inputs & Forms',
-              collapsed: false,
-              items: [
-                { text: 'Button', link: '/components/input-and-form/button' },
-                { text: 'Form', link: '/components/input-and-form/form' },
-                { text: 'Editor', link: '/components/input-and-form/editor' },
-              ]
-            },
-            {
-              text: 'Layout',
-              collapsed: false,
-              items: [
-                { text: 'Card', link: '/components/layout/card' },
-                { text: 'Modal', link: '/components/layout/modal' },
-                { text: 'Tab', link: '/components/layout/tab' },
-              ]
-            },
-            {
-              text: 'Navigation',
-              collapsed: false,
-              items: [
-                { text: 'Bread-Tag', link: '/components/navigation/bread-tag' },
-              ]
-            },
-            {
-              text: 'Table',
-              collapsed: false,
-              items: [
-                { text: 'Static Table', link: '/components/table/static-table' },
-                { text: 'Asynchronous Table', link: '/components/table/async-table' },
-              ]
-            },
-            {
-              text: 'Data Display',
-              collapsed: false,
-              items: [
-                { text: 'Font-Icon', link: '/components/data-display/font-icon' },
-                { text: 'Overlay', link: '/components/data-display/overlay' },
-              ]
-            },
-            {
-              text: 'Services',
-              collapsed: false,
-              items: [
-                { text: 'Keycloak-Auth', link: '/components/service/keycloak-auth' },
-                { text: 'Storage', link: '/components/service/storage' },
-              ]
-            },
+            { text: 'Installation', link: '/components/installation' },
+            { text: 'Quick Start', link: '/components/quick-start' },
+            { text: 'Theming', link: '/components/theming' },
+          ]
+        },
+        {
+          text: 'Feedback',
+          collapsed: false,
+          items: [
+            { text: 'Alert', link: '/components/feedback/alert' },
+            { text: 'Toast', link: '/components/feedback/toast' },
+          ]
+        },
+        {
+          text: 'Inputs & Forms',
+          collapsed: false,
+          items: [
+            { text: 'Button', link: '/components/input-and-form/button' },
+            { text: 'Form', link: '/components/input-and-form/form' },
+            { text: 'Editor', link: '/components/input-and-form/editor' },
+          ]
+        },
+        {
+          text: 'Layout',
+          collapsed: false,
+          items: [
+            { text: 'Card', link: '/components/layout/card' },
+            { text: 'Modal', link: '/components/layout/modal' },
+            { text: 'Tab', link: '/components/layout/tab' },
+          ]
+        },
+        {
+          text: 'Navigation',
+          collapsed: false,
+          items: [
+            { text: 'Bread-Tag', link: '/components/navigation/bread-tag' },
+          ]
+        },
+        {
+          text: 'Table',
+          collapsed: false,
+          items: [
+            { text: 'Static Table', link: '/components/table/static-table' },
+            { text: 'Async Table', link: '/components/table/async-table' },
+          ]
+        },
+        {
+          text: 'Data Display',
+          collapsed: false,
+          items: [
+            { text: 'Font-Icon', link: '/components/data-display/font-icon' },
+            { text: 'Overlay', link: '/components/data-display/overlay' },
+          ]
+        },
+        {
+          text: 'Services',
+          collapsed: false,
+          items: [
+            { text: 'Keycloak-Auth', link: '/components/service/keycloak-auth' },
+            { text: 'Storage', link: '/components/service/storage' },
+          ]
+        },
+        {
+          text: 'Development Resources',
+          collapsed: true,
+          items: [
+            { text: 'Storybook', link: '/lpkitvue/storybook/', target: '_blank' },
+            { text: 'TypeScript Definitions', link: '/components/typescript' },
+            { text: 'Testing Guide', link: '/components/testing' },
+            { text: 'Migration Guide', link: '/components/migration' },
           ]
         }
       ]
     },
+
     socialLinks: [
       { icon: 'github', link: 'https://github.com/lpkitvue/lpkitvue' }
     ],
 
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2024-present LPKitVue'
+      copyright: 'Copyright © 2024-present LPKitVue Team'
     },
 
     search: {
-      provider: 'local'
+      provider: 'local',
+      options: {
+        miniSearch: {
+          searchOptions: {
+            fuzzy: 0.2,
+            prefix: true,
+            boost: { title: 4, text: 2, titles: 1 }
+          }
+        }
+      }
     },
 
     outline: {
@@ -171,31 +207,70 @@ export default defineConfig({
     },
 
     editLink: {
-      pattern: 'https://github.com/lpkitvue/lpkitvue/edit/main/:path',
+      pattern: 'https://github.com/lpkitvue/lpkitvue/edit/main/apps/docs/:path',
       text: 'Edit this page on GitHub'
+    },
+
+    lastUpdated: {
+      text: 'Updated at',
+      formatOptions: {
+        dateStyle: 'full',
+        timeStyle: 'medium'
+      }
     }
   },
+
+  markdown: {
+    theme: { light: 'github-light', dark: 'github-dark' },
+    lineNumbers: true,
+    codeTransformers: [
+      {
+        postprocess(code) {
+          return code.replace(/\[!code (.*?)\]/g, '')
+        }
+      }
+    ]
+  },
+
   vite: {
     optimizeDeps: {
-      include: ['vue-select'],
+      include: ['vue-select', 'vue', '@vue/shared'],
+      exclude: ['@lpkitvue/alert', '@lpkitvue/toast', '@lpkitvue/font-icon']
     },
     ssr: {
-      noExternal: ['vue-select', '@lpkitvue/button', '@lpkitvue/alert', '@lpkitvue/table', '@lpkitvue/modal'],
+      noExternal: [
+        'vue-select',
+        '@lpkitvue/button',
+        '@lpkitvue/alert',
+        '@lpkitvue/table',
+        '@lpkitvue/modal',
+        '@lpkitvue/toast',
+        '@lpkitvue/font-icon'
+      ],
     },
     build: {
       commonjsOptions: {
         transformMixedEsModules: true,
-      }
-    },
-    rollupOptions: {
-      external: ['vue', 'vue-i18n', 'vue-select'],
-      output: {
-        globals: {
-          vue: 'Vue',
-          'vue-i18n': 'VueI18n',
-          'vue-select': 'VueSelect',
+      },
+      rollupOptions: {
+        external: ['vue'],
+        output: {
+          globals: {
+            vue: 'Vue'
+          },
         },
       },
+      chunkSizeWarningLimit: 1000
+    },
+    server: {
+      fs: {
+        allow: ['../..']
+      }
     }
+  },
+
+  buildEnd: (config) => {
+    console.log('✅ VitePress build completed successfully')
+    console.log(`📁 Output directory: ${config.outDir}`)
   }
 })

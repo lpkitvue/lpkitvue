@@ -1,21 +1,196 @@
 {
-  "$schema": "https://turborepo.com/schema.json",
+  "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
-  "tasks": {
+  "globalDependencies": [
+    "**/.env*",
+    "tsconfig.json",
+    "**/*.md"
+  ],
+  "globalEnv": [
+    "NODE_ENV",
+    "CI",
+    "GITHUB_TOKEN",
+    "NPM_TOKEN"
+  ],
+  "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env*",
+        "tsconfig.json",
+        "vite.config.ts",
+        "lib/**",
+        "src/**"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**",
+        "!.next/cache/**",
+        ".vitepress/dist/**",
+        "storybook-static/**"
+      ],
+      "env": ["NODE_ENV", "GITHUB_TOKEN", "NPM_TOKEN"]
     },
-    "lint": {
-      "dependsOn": ["^lint"]
+    "build:packages": {
+      "dependsOn": ["^build:packages"],
+      "inputs": [
+        "lib/**",
+        "src/**",
+        "package.json",
+        "tsconfig.json",
+        "vite.config.ts"
+      ],
+      "outputs": ["dist/**"],
+      "env": ["NODE_ENV"]
     },
-    "check-types": {
-      "dependsOn": ["^check-types"]
+    "docs:build": {
+      "dependsOn": ["build:packages"],
+      "inputs": [
+        "**/*.md",
+        "**/*.vue",
+        ".vitepress/**",
+        "public/**",
+        "package.json"
+      ],
+      "outputs": [".vitepress/dist/**"],
+      "env": ["NODE_ENV", "__VUE_PROD_DEVTOOLS__"]
+    },
+    "storybook:build": {
+      "dependsOn": ["build:packages"],
+      "inputs": [
+        "**/*.stories.@(js|jsx|ts|tsx|mdx)",
+        "**/*.story.@(js|jsx|ts|tsx|mdx)",
+        ".storybook/**",
+        "lib/**",
+        "src/**",
+        "documentation/**"
+      ],
+      "outputs": ["storybook-static/**"],
+      "env": ["NODE_ENV"]
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env*"
+      ],
+      "env": ["NODE_ENV", "PORT", "HOST"]
+    },
+    "docs:dev": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["build:packages"],
+      "inputs": [
+        "**/*.md",
+        "**/*.vue",
+        ".vitepress/**"
+      ],
+      "env": ["NODE_ENV", "PORT"]
+    },
+    "storybook:dev": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["build:packages"],
+      "inputs": [
+        "**/*.stories.@(js|jsx|ts|tsx|mdx)",
+        ".storybook/**",
+        "lib/**"
+      ],
+      "env": ["NODE_ENV", "PORT"]
+    },
+    "lint": {
+      "inputs": [
+        "**/*.{js,jsx,ts,tsx,vue}",
+        ".eslintrc*",
+        "eslint.config.*"
+      ],
+      "outputs": [],
+      "dependsOn": ["^build:packages"]
+    },
+    "lint:fix": {
+      "inputs": [
+        "**/*.{js,jsx,ts,tsx,vue}",
+        ".eslintrc*",
+        "eslint.config.*"
+      ],
+      "outputs": [],
+      "cache": false
+    },
+    "type-check": {
+      "inputs": [
+        "**/*.{ts,tsx,vue}",
+        "tsconfig.json",
+        "**/*.d.ts"
+      ],
+      "outputs": [],
+      "dependsOn": ["^build:packages"]
+    },
+    "test": {
+      "inputs": [
+        "**/*.{js,jsx,ts,tsx,vue}",
+        "**/*.test.*",
+        "**/*.spec.*",
+        "jest.config.*",
+        "vitest.config.*"
+      ],
+      "outputs": [
+        "coverage/**",
+        ".nyc_output/**"
+      ],
+      "dependsOn": ["build:packages"]
+    },
+    "test:watch": {
+      "cache": false,
+      "persistent": true,
+      "inputs": [
+        "**/*.{js,jsx,ts,tsx,vue}",
+        "**/*.test.*",
+        "**/*.spec.*"
+      ]
+    },
+    "clean": {
+      "cache": false,
+      "inputs": [],
+      "outputs": []
+    },
+    "format": {
+      "cache": false,
+      "inputs": [
+        "**/*.{js,jsx,ts,tsx,vue,md,json}",
+        ".prettierrc*",
+        "prettier.config.*"
+      ],
+      "outputs": []
+    },
+    "format:check": {
+      "inputs": [
+        "**/*.{js,jsx,ts,tsx,vue,md,json}",
+        ".prettierrc*",
+        "prettier.config.*"
+      ],
+      "outputs": []
+    },
+    "preview": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["build"],
+      "env": ["NODE_ENV", "PORT"]
+    },
+    "publish": {
+      "dependsOn": ["build", "lint", "test"],
+      "inputs": [
+        "dist/**",
+        "package.json",
+        "README.md"
+      ],
+      "outputs": [],
+      "cache": false,
+      "env": ["NPM_TOKEN", "NODE_AUTH_TOKEN"]
     }
+  },
+  "remoteCache": {
+    "signature": true
   }
 }

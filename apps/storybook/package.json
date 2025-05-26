@@ -1,22 +1,70 @@
 {
   "name": "lpkitvue-storybook",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
+  "description": "Storybook for LPKitVue component library",
+  "author": "LPKitVue Team",
+  "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "storybook dev -p 6006 --no-open",
+    "build": "storybook build --output-dir storybook-static",
+    "preview": "npx http-server storybook-static -p 6006 -o",
+    "storybook:dev": "npm run dev",
+    "storybook:build": "npm run build",
+    "clean": "rimraf storybook-static .storybook-out"
+  },
+  "dependencies": {
+    "@lpkitvue/alert": "workspace:*",
+    "@lpkitvue/bread-tag": "workspace:*",
+    "@lpkitvue/button": "workspace:*",
+    "@lpkitvue/card": "workspace:*",
+    "@lpkitvue/editor": "workspace:*",
+    "@lpkitvue/font-icon": "workspace:*",
+    "@lpkitvue/form": "workspace:*",
+    "@lpkitvue/keycloak-auth": "workspace:*",
+    "@lpkitvue/modal": "workspace:*",
+    "@lpkitvue/overlay": "workspace:*",
+    "@lpkitvue/storage": "workspace:*",
+    "@lpkitvue/tab": "workspace:*",
+    "@lpkitvue/table": "workspace:*",
+    "@lpkitvue/toast": "workspace:*",
+    "vue": "^3.5.13"
   },
   "devDependencies": {
+    "@storybook/addon-a11y": "^8.6.10",
+    "@storybook/addon-actions": "^8.6.10",
+    "@storybook/addon-controls": "^8.6.10",
+    "@storybook/addon-coverage": "^8.6.10",
+    "@storybook/addon-docs": "^8.6.10",
+    "@storybook/addon-essentials": "^8.6.10",
+    "@storybook/addon-links": "^8.6.10",
+    "@storybook/addon-postcss": "^2.0.0",
+    "@storybook/blocks": "^8.6.10",
     "@storybook/manager-api": "^8.6.10",
     "@storybook/preview-api": "^8.6.9",
     "@storybook/theming": "^8.6.10",
     "@storybook/vue3": "^8.6.9",
     "@storybook/vue3-vite": "^8.6.0",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "postcss": "^8.5.0",
+    "rimraf": "^6.0.1",
     "storybook": "^8.6.0",
-    "@vitejs/plugin-vue": "5.2.1",
-    "vite": "6.3.5",
+    "storybook-addon-breakpoints": "^1.2.1",
+    "storybook-addon-themes": "^6.1.0",
+    "typescript": "^5.8.2",
+    "vite": "^6.3.5",
     "vite-plugin-dts": "^4.4.0"
   },
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

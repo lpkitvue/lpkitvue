@@ -1,14 +1,62 @@
 {
-  "name": "my-turborepo",
+  "name": "lpkitvue-monorepo",
   "private": true,
+  "description": "LPKitVue - A comprehensive Vue 3 component library monorepo",
+  "author": {
+    "name": "LPKitVue Team",
+    "email": "burak.ergen@outlook.com.tr",
+    "url": "https://github.com/lpkitvue"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lpkitvue/lpkitvue"
+  },
+  "bugs": {
+    "url": "https://github.com/lpkitvue/lpkitvue/issues"
+  },
+  "homepage": "https://lpkitvue.github.io/lpkitvue/",
+  "keywords": [
+    "vue",
+    "vue3",
+    "components",
+    "ui-library",
+    "typescript",
+    "monorepo",
+    "design-system"
+  ],
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev",
+    "build:docs": "turbo run docs:build",
+    "build:storybook": "turbo run storybook:build",
+    "dev": "turbo run dev --parallel",
+    "dev:docs": "turbo run docs:dev",
+    "dev:storybook": "turbo run storybook:dev",
+    "docs:build": "turbo run docs:build",
+    "docs:dev": "turbo run docs:dev",
+    "docs:preview": "turbo run preview --filter=docs",
+    "storybook:build": "turbo run storybook:build",
+    "storybook:dev": "turbo run storybook:dev",
+    "storybook:preview": "turbo run preview --filter=storybook",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run check-types"
+    "lint:fix": "turbo run lint:fix",
+    "type-check": "turbo run type-check",
+    "test": "turbo run test",
+    "test:watch": "turbo run test:watch",
+    "clean": "turbo run clean && rimraf node_modules/.cache",
+    "clean:all": "npm run clean && rimraf **/node_modules **/dist **/.turbo",
+    "format": "prettier --write \"**/*.{ts,tsx,vue,md,json}\" --ignore-path .gitignore",
+    "format:check": "prettier --check \"**/*.{ts,tsx,vue,md,json}\" --ignore-path .gitignore",
+    "preview": "turbo run preview",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:publish": "changeset publish",
+    "preinstall": "npx only-allow npm",
+    "postinstall": "husky install || exit 0",
+    "prepare": "husky install || exit 0"
   },
   "dependencies": {
+    "vue": "^3.2.0",
     "@lpkitvue/alert": "latest",
     "@lpkitvue/bread-tag": "latest",
     "@lpkitvue/button": "latest",
@@ -25,15 +73,43 @@
     "@lpkitvue/toast": "latest"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^0.5.0",
+    "@changesets/cli": "^2.27.9",
+    "@types/node": "^22.10.2",
+    "@typescript-eslint/eslint-plugin": "^8.18.1",
+    "@typescript-eslint/parser": "^8.18.1",
+    "cross-env": "^7.0.3",
+    "eslint": "^9.16.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-vue": "^9.31.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10",
+    "only-allow": "^1.2.1",
     "prettier": "^3.5.3",
+    "rimraf": "^6.0.1",
     "turbo": "^2.5.3",
-    "typescript": "5.8.2"
+    "typescript": "^5.8.2",
+    "vue-tsc": "^2.1.10"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
   },
   "packageManager": "npm@10.8.2",
   "workspaces": [
     "apps/*"
-  ]
+  ],
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,vue}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{md,json}": [
+      "prettier --write"
+    ]
+  },
+  "volta": {
+    "node": "20.18.0",
+    "npm": "10.8.2"
+  }
 }

@@ -1,4 +1,4 @@
-name: Deploy VitePress site to Pages
+name: Deploy Documentation and Storybook to Pages
 
 on:
   push:
@@ -11,6 +11,11 @@ permissions:
   id-token: write
   packages: read
 
+# Allow only one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,9 +27,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
 
-      # NPM yapılandırması için ayrı bir adım
-      - name: Configure npm
+      - name: Configure npm for GitHub Packages
         run: |
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
           echo "@lpkitvue:registry=https://npm.pkg.github.com" >> ~/.npmrc
@@ -35,19 +40,72 @@ jobs:
 
       - name: Install dependencies
         run: |
-          echo "Installing dependencies..."
+          echo "Installing dependencies with TurboRepo..."
           npm install --verbose
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Build
-        run: npm run docs:build
+      - name: Build packages
+        run: |
+          echo "Building packages..."
+          npm run build:packages
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Build Documentation (VitePress)
+        run: |
+          echo "Building VitePress documentation..."
+          npm run docs:build
+        env:
+          NODE_ENV: production
+
+      - name: Build Storybook
+        run: |
+          echo "Building Storybook..."
+          npm run storybook:build
+        env:
+          NODE_ENV: production
+
+      - name: Prepare deployment directory
+        run: |
+          echo "Preparing deployment structure..."
+          mkdir -p deployment
+          
+          # Copy VitePress build to root
+          cp -r apps/docs/.vitepress/dist/* deployment/
+          
+          # Copy Storybook build to storybook subdirectory
+          mkdir -p deployment/storybook
+          cp -r apps/storybook/storybook-static/* deployment/storybook/
+          
+          # Create index.html redirect if needed
+          if [ ! -f deployment/index.html ]; then
+            echo "Creating root index.html..."
+            cat > deployment/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="utf-8">
+            <title>LPKitVue - Redirecting...</title>
+            <meta http-equiv="refresh" content="0; url=./docs/">
+            <link rel="canonical" href="./docs/">
+          </head>
+          <body>
+            <p>Redirecting to <a href="./docs/">documentation</a>...</p>
+          </body>
+          </html>
+          EOF
+          fi
+          
+          # List deployment structure for debugging
+          echo "Deployment structure:"
+          find deployment -type f -name "*.html" | head -20
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .vitepress/dist
+          path: deployment
 
   deploy:
     environment:
