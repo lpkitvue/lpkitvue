@@ -1,0 +1,486 @@
+# Overlay Component
+
+The `@lpkitvue/overlay` component provides a versatile and customizable tooltip/popover solution for Vue 3 applications. It can display additional information, contextual help, or interactive content triggered by various user interactions.
+
+## Overview
+
+Tooltips and popovers are essential UI elements that enhance user experience by providing additional context or actions without cluttering the interface. The Overlay component offers a flexible solution with various placement options, triggers, and styling capabilities.
+
+## Installation
+
+```bash
+npm install @lpkitvue/overlay
+```
+
+## Basic Usage
+
+Import and use the Overlay component in your Vue application:
+
+```vue
+<script setup lang="ts">
+import { Overlay } from '@lpkitvue/overlay';
+</script>
+
+<template>
+  <Overlay text="This is a simple tooltip">
+    <button>Hover me</button>
+  </Overlay>
+</template>
+```
+
+## Props
+
+The Overlay component accepts the following props:
+
+| Prop          | Type                                     | Default     | Description                                                   |
+| ------------- | ---------------------------------------- | ----------- | ------------------------------------------------------------- |
+| `text`        | `string`                                 | `''`        | Text content of the overlay                                   |
+| `placement`   | `'top' \| 'right' \| 'bottom' \| 'left'` | `'top'`     | Position of the overlay relative to the trigger element       |
+| `offset`      | `number`                                 | `8`         | Space between the overlay and the trigger element (in pixels) |
+| `delayShow`   | `number`                                 | `200`       | Delay before showing the overlay (in milliseconds)            |
+| `delayHide`   | `number`                                 | `200`       | Delay before hiding the overlay (in milliseconds)             |
+| `arrow`       | `boolean`                                | `true`      | Whether to show an arrow pointing to the trigger element      |
+| `disabled`    | `boolean`                                | `false`     | Disables the overlay when true                                |
+| `trigger`     | `'hover' \| 'click' \| 'focus'`          | `'hover'`   | Event that triggers the overlay                               |
+| `interactive` | `boolean`                                | `true`      | Whether overlay content can be interacted with                |
+| `maxWidth`    | `number`                                 | `300`       | Maximum width of overlay (in pixels)                          |
+| `theme`       | `'default' \| 'dark' \| 'light'`         | `'default'` | Overlay appearance theme                                      |
+| `teleportTo`  | `string`                                 | `'body'`    | CSS selector for the teleport target                          |
+| `appendTo`    | `boolean`                                | `true`      | Whether to append to teleport target or render in place       |
+| `zIndex`      | `number`                                 | `9999`      | Z-index of the overlay                                        |
+
+## Events
+
+| Event            | Payload   | Description                                           |
+| ---------------- | --------- | ----------------------------------------------------- |
+| `show`           | none      | Emitted when the overlay is shown                     |
+| `hide`           | none      | Emitted when the overlay is hidden                    |
+| `update:visible` | `boolean` | Emitted when visibility changes (for v-model support) |
+
+## Slots
+
+| Slot      | Description                                                     |
+| --------- | --------------------------------------------------------------- |
+| `default` | The trigger element that the overlay will be attached to        |
+| `content` | Custom content for the overlay (alternative to the `text` prop) |
+
+## Placement Options
+
+The `placement` prop determines where the overlay appears relative to the trigger element:
+
+```vue
+<template>
+  <Overlay text="Top placement" placement="top">
+    <button>Top</button>
+  </Overlay>
+
+  <Overlay text="Right placement" placement="right">
+    <button>Right</button>
+  </Overlay>
+
+  <Overlay text="Bottom placement" placement="bottom">
+    <button>Bottom</button>
+  </Overlay>
+
+  <Overlay text="Left placement" placement="left">
+    <button>Left</button>
+  </Overlay>
+</template>
+```
+
+## Trigger Types
+
+The `trigger` prop specifies which user interaction shows the overlay:
+
+```vue
+<template>
+  <Overlay text="Appears on hover" trigger="hover">
+    <button>Hover me</button>
+  </Overlay>
+
+  <Overlay text="Appears on click" trigger="click">
+    <button>Click me</button>
+  </Overlay>
+
+  <Overlay text="Appears on focus" trigger="focus">
+    <input placeholder="Focus me" />
+  </Overlay>
+</template>
+```
+
+## Theme Options
+
+The `theme` prop allows you to change the overlay's visual style:
+
+```vue
+<template>
+  <Overlay text="Default theme" theme="default">
+    <button>Default</button>
+  </Overlay>
+
+  <Overlay text="Dark theme" theme="dark">
+    <button>Dark</button>
+  </Overlay>
+
+  <Overlay text="Light theme" theme="light">
+    <button>Light</button>
+  </Overlay>
+</template>
+```
+
+## Rich Content
+
+Use the content slot to display complex HTML content:
+
+```vue
+<template>
+  <Overlay placement="right" trigger="click">
+    <button>Show Details</button>
+
+    <template #content>
+      <div class="p-2">
+        <h4 class="text-lg font-semibold mb-2">Product Details</h4>
+        <p>This is a high-quality product that will meet your needs.</p>
+        <div class="flex justify-between items-center mt-2">
+          <span class="font-bold">$29.99</span>
+          <button class="px-3 py-1 bg-green-500 text-white rounded text-sm">Add to Cart</button>
+        </div>
+      </div>
+    </template>
+  </Overlay>
+</template>
+```
+
+## Interactive Content
+
+When `interactive` is set to `true`, users can interact with content inside the overlay:
+
+```vue
+<script setup>
+import { ref } from 'vue';
+
+const count = ref(0);
+const incrementCount = () => {
+  count.value++;
+};
+</script>
+
+<template>
+  <Overlay trigger="click" interactive>
+    <button>Interactive Overlay</button>
+
+    <template #content>
+      <div class="p-2">
+        <h4 class="text-lg font-semibold mb-2">Interactive Content</h4>
+        <p class="mb-2">Count: {{ count }}</p>
+        <button @click="incrementCount" class="px-3 py-1 bg-blue-500 text-white rounded text-sm">Increment</button>
+      </div>
+    </template>
+  </Overlay>
+</template>
+```
+
+## Custom Teleport Target
+
+By default, overlays are teleported to the `body` element. You can specify a different target:
+
+```vue
+<template>
+  <div id="custom-target" class="border border-dashed border-gray-400 p-4 mb-4 min-h-24">
+    <p class="text-gray-500">Custom teleport target - tooltips will appear here</p>
+  </div>
+
+  <Overlay text="This tooltip is teleported to #custom-target" teleportTo="#custom-target">
+    <button>Custom Target</button>
+  </Overlay>
+</template>
+```
+
+## Conditional Display
+
+Use the `disabled` prop to conditionally enable/disable the overlay:
+
+```vue
+<script setup>
+import { ref } from 'vue';
+
+const isDisabled = ref(false);
+const toggleDisabled = () => {
+  isDisabled.value = !isDisabled.value;
+};
+</script>
+
+<template>
+  <Overlay text="This tooltip can be disabled" :disabled="isDisabled">
+    <button>Hover me</button>
+  </Overlay>
+
+  <button @click="toggleDisabled">{{ isDisabled ? 'Enable' : 'Disable' }} Tooltip</button>
+</template>
+```
+
+## Z-Index Control
+
+Control stacking order with the `zIndex` prop:
+
+```vue
+<template>
+  <Overlay text="Default z-index">
+    <button>Default</button>
+  </Overlay>
+
+  <Overlay text="Higher z-index" :zIndex="10000">
+    <button>Higher</button>
+  </Overlay>
+</template>
+```
+
+## Advanced Usage
+
+### Programmatic Control
+
+You can use v-model to control the visibility programmatically:
+
+```vue
+<script setup>
+import { ref } from 'vue';
+
+const isVisible = ref(false);
+const toggleOverlay = () => {
+  isVisible.value = !isVisible.value;
+};
+</script>
+
+<template>
+  <button @click="toggleOverlay">{{ isVisible ? 'Hide' : 'Show' }} Overlay</button>
+
+  <Overlay v-model:visible="isVisible" text="Programmatically controlled overlay" trigger="manual">
+    <div class="h-6 w-6 bg-blue-500 rounded-full"></div>
+  </Overlay>
+</template>
+```
+
+### Auto-Flipping
+
+The Overlay component automatically flips its placement when it would otherwise render off-screen:
+
+```vue
+<template>
+  <div class="flex justify-between w-full">
+    <Overlay text="This will flip to the right" placement="left">
+      <button>Left Edge</button>
+    </Overlay>
+
+    <Overlay text="This will flip to the left" placement="right">
+      <button>Right Edge</button>
+    </Overlay>
+  </div>
+</template>
+```
+
+## Accessibility
+
+The Overlay component follows accessibility best practices:
+
+- Uses `role="tooltip"` for proper screen reader announcement
+- Provides `aria-hidden` attribute for visibility state
+- Supports keyboard triggering via focus events
+- Maintains proper focus management
+- Ensures sufficient color contrast for all themes
+
+## Performance Considerations
+
+For optimal performance:
+
+1. Use the `delayShow` and `delayHide` props to prevent flickering during rapid mouse movements
+2. Avoid putting too many interactive elements inside the overlay content
+3. Keep overlays simple and focused on their purpose
+4. Consider using the `appendTo={false}` prop for overlays in heavily nested DOM structures
+
+## Customization
+
+### Custom Styling
+
+You can apply custom styles to the overlay using CSS:
+
+```vue
+<template>
+  <Overlay text="Custom styled overlay">
+    <button>Custom Style</button>
+  </Overlay>
+</template>
+
+<style scoped>
+/* Target the overlay specifically */
+:deep(.lp-overlay-content) {
+  /* Custom styles for the overlay */
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+  color: white;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+:deep(.lp-overlay-arrow) {
+  /* Custom styles for the arrow */
+  background-color: rgba(0, 0, 0, 0.8);
+}
+</style>
+```
+
+### Create a Custom Theme
+
+You can implement a custom theme by setting the theme name and providing styles:
+
+```vue
+<template>
+  <Overlay text="Custom theme" theme="my-custom-theme">
+    <button>Custom Theme</button>
+  </Overlay>
+</template>
+
+<style>
+/* Define a custom theme */
+.lp-overlay-theme-my-custom-theme {
+  background-color: #8b5cf6;
+  color: white;
+  border: 2px solid #7c3aed;
+  font-weight: bold;
+  box-shadow: 0 10px 25px -5px rgba(124, 58, 237, 0.5);
+}
+
+.lp-overlay-theme-my-custom-theme .lp-overlay-arrow {
+  background-color: #8b5cf6;
+  border: 2px solid #7c3aed;
+}
+</style>
+```
+
+## Best Practices
+
+1. **Keep content concise**: Tooltips should provide brief, helpful information
+2. **Use appropriate triggers**: Choose a trigger type that matches the expected user behavior
+3. **Mind the delay**: Set appropriate show/hide delays to avoid unintentional triggering
+4. **Test on mobile**: Ensure overlays work well on touch devices
+5. **Consider content width**: Set an appropriate `maxWidth` to avoid overly wide tooltips
+6. **Use for supplementary info**: Overlays should enhance the UX, not hide critical information
+
+## Common Use Cases
+
+### Form Field Help Text
+
+```vue
+<template>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <div class="flex items-center">
+      <input id="password" type="password" class="form-input mr-2" />
+      <Overlay text="Password must be at least 8 characters and include a number and symbol">
+        <span class="text-blue-500 cursor-help">ⓘ</span>
+      </Overlay>
+    </div>
+  </div>
+</template>
+```
+
+### Feature Highlights
+
+```vue
+<template>
+  <div class="feature-card">
+    <h3>Premium Feature</h3>
+    <p>This feature helps you save time.</p>
+    <Overlay text="Upgrade to access this premium feature" placement="top" theme="dark">
+      <button class="upgrade-btn">Upgrade</button>
+    </Overlay>
+  </div>
+</template>
+```
+
+### Interactive Menu
+
+```vue
+<template>
+  <Overlay trigger="click" interactive placement="bottom" theme="light">
+    <button class="user-avatar">👤</button>
+
+    <template #content>
+      <div class="user-menu">
+        <div class="menu-header">
+          <h4>User Menu</h4>
+        </div>
+        <div class="menu-items">
+          <button @click="goToProfile">Profile</button>
+          <button @click="goToSettings">Settings</button>
+          <button @click="logout">Logout</button>
+        </div>
+      </div>
+    </template>
+  </Overlay>
+</template>
+```
+
+## TypeScript Support
+
+The component includes full TypeScript support through exported types:
+
+```typescript
+import { Overlay } from '@lpkitvue/overlay';
+import type { OverlayPlacement, OverlayTrigger, OverlayTheme, OverlayProps } from '@lpkitvue/overlay';
+
+// Type-safe props
+const placement: OverlayPlacement = 'top';
+const trigger: OverlayTrigger = 'hover';
+const theme: OverlayTheme = 'dark';
+
+// Full props object
+const overlayProps: OverlayProps = {
+  text: 'Tooltip text',
+  placement,
+  trigger,
+  theme,
+  offset: 10,
+  interactive: true,
+};
+```
+
+## Browser Support
+
+The Overlay component is compatible with all modern browsers:
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## Troubleshooting
+
+### Overlay Not Appearing
+
+Check the following:
+
+1. Ensure the trigger element is visible and has dimensions
+2. Verify the `disabled` prop is not set to `true`
+3. Check that no CSS is interfering with the overlay's visibility
+4. Inspect the DOM to ensure the overlay is being teleported correctly
+
+### Positioning Issues
+
+If the overlay is not positioning correctly:
+
+1. Ensure the trigger element has sufficient dimensions
+2. Check that the parent container has a defined position
+3. Verify that no CSS transform is affecting positioning calculations
+4. Try a different `placement` value
+
+### Z-Index Problems
+
+If the overlay appears behind other elements:
+
+1. Use the `zIndex` prop to increase the stacking order
+2. Check if a parent element has a stacking context with a lower z-index
+3. Ensure the teleport target doesn't have CSS that restricts z-index
+
+## Conclusion
+
+The Overlay component provides a versatile solution for adding tooltips, popovers, and other contextual interface elements to your Vue application. With its flexible configuration options and accessibility features, it can enhance the user experience across a wide range of use cases.

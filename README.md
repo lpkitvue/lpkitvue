@@ -1,48 +1,84 @@
-# LPKitVue
+# Turborepo starter
 
-A comprehensive, modular Vue 3 component library designed for building modern, responsive, and accessible web applications. Built with TypeScript, this library focuses on developer experience, performance, and customization.
+This Turborepo starter is maintained by the Turborepo core team.
 
-![version](https://img.shields.io/badge/version-1.0.0-blue.svg)
-![license](https://img.shields.io/badge/license-Custom-red.svg)
+## Using this example
 
-## ⚠️ Important License Notice
+Run the following command:
 
-**This software requires explicit written permission for use.** Please see the [LICENSE](LICENSE) file for details. To request permission, contact [burak.ergen@outlook.com.tr](mailto:burak.ergen@outlook.com.tr).
+```sh
+npx create-turbo@latest
+```
 
-## Features
+## What's inside?
 
-- **Modular Architecture**: Import only the components you need to minimize bundle size
-- **TypeScript Support**: Built with TypeScript for improved developer experience with type checking
-- **Customizable Theming**: Easily adapt the look and feel to match your brand
-- **Responsive Design**: Components work seamlessly across desktop, tablet, and mobile
-- **Accessibility**: Built with a11y best practices
-- **Independent Versioning**: Each component is versioned separately for maximum flexibility
-- **Storybook Documentation**: Interactive documentation with live examples
+This Turborepo includes the following packages/apps:
 
-## Available Components
+### Apps and Packages
 
-| Component | Description | Version |
-|-----------|-------------|---------|
-| `@lpkitvue/alert` | Alert and notification components | 1.0.0 |
-| `@lpkitvue/bread-tag` | Breadcrumb navigation component | 1.0.0 |
-| `@lpkitvue/button` | Various button components | 1.0.0 |
-| `@lpkitvue/card` | Card layout components with various styles | 1.0.0 |
-| `@lpkitvue/editor` | Rich text editor component | 1.0.0 |
-| `@lpkitvue/font-icon` | Icon component using Iconify | 1.0.0 |
-| `@lpkitvue/form` | Form input components | 1.0.0 |
-| `@lpkitvue/keycloak-auth` | Authentication utilities with Keycloak | 1.0.0 |
-| `@lpkitvue/modal` | Modal dialog components | 1.0.0 |
-| `@lpkitvue/overlay` | Tooltip and overlay components | 1.0.0 |
-| `@lpkitvue/storage` | Browser storage utilities with encryption | 1.0.0 |
-| `@lpkitvue/tab` | Tab navigation components | 1.0.0 |
-| `@lpkitvue/toast` | Toast notification system | 1.0.0 |
+- `docs`: a [Next.js](https://nextjs.org/) app
+- `web`: another [Next.js](https://nextjs.org/) app
+- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
+- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
+- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
 
-## Documentation
+Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
-For full documentation, please visit our [documentation site](https://lpkitvue.github.io/docs/).
+### Utilities
 
-## License
+This Turborepo has some additional tools already setup for you:
 
-This project is licensed under a custom license that requires explicit written permission for use - see the [LICENSE](LICENSE) file for details.
+- [TypeScript](https://www.typescriptlang.org/) for static type checking
+- [ESLint](https://eslint.org/) for code linting
+- [Prettier](https://prettier.io) for code formatting
 
-Copyright © 2025 LPKitVue. All rights reserved.
+### Build
+
+To build all apps and packages, run the following command:
+
+```
+cd my-turborepo
+pnpm build
+```
+
+### Develop
+
+To develop all apps and packages, run the following command:
+
+```
+cd my-turborepo
+pnpm dev
+```
+
+### Remote Caching
+
+> [!TIP]
+> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+
+Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+
+By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+
+```
+cd my-turborepo
+npx turbo login
+```
+
+This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+
+Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+
+```
+npx turbo link
+```
+
+## Useful Links
+
+Learn more about the power of Turborepo:
+
+- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
+- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
+- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
+- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
+- [Configuration Options](https://turborepo.com/docs/reference/configuration)
+- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)

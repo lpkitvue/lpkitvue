@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&display=swap');
+
+:root {
+  --color-primary: #4361ee;
+  --color-primary-light: #b3c7ff;
+  --color-primary-dark-light: rgba(67,97,238,.15);
+  --color-secondary: #ffc300;
+  --color-secondary-light: #F1E3C5;
+  --color-secondary-dark-light: rgba(108,117,125,.15);
+  --color-success: #00ab55;
+  --color-success-light: #ddf5f0;
+  --color-success-dark-light: rgba(0,171,85,.15);
+  --color-danger: #dc3545;
+  --color-danger-light: #fff5f5;
+  --color-danger-dark-light: rgba(231,81,90,.15);
+  --color-warning: #ffc300;
+  --color-warning-light: #fff9ed;
+  --color-warning-dark-light: rgba(226,160,63,.15);
+  --color-info: #2196f3;
+  --color-info-light: #e7f7ff;
+  --color-info-dark-light: rgba(33,150,243,.15);
+  --color-dark: #3b3f5c;
+  --color-dark-light: #eaeaec;
+  --color-dark-dark-light: rgba(59,63,92,.15);
+  --color-light: #ffffff;
+  --color-light-light: #e0e6ed;
+  --color-light-dark-light: #888ea8;
+}

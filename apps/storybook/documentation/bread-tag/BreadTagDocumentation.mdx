@@ -1,0 +1,455 @@
+# BreadTag Component
+
+The `@lpkitvue/bread-tag` component provides a flexible and SEO-friendly breadcrumb navigation solution for Vue 3 applications. Breadcrumbs help users understand their current location within a website's hierarchy and navigate easily between levels.
+
+## Installation
+
+```bash
+npm install @lpkitvue/bread-tag
+```
+
+## Overview
+
+Breadcrumbs are a fundamental navigation aid that shows users their location in a site hierarchy. The BreadTag component offers a complete solution with:
+
+- Standard breadcrumb navigation
+- Multiple separator styles
+- Responsive design with mobile adaptations
+- SEO optimization with structured data
+- Icon support for enhanced visual cues
+- Custom styling capabilities
+
+## Basic Usage
+
+The component requires a list of breadcrumb items and a title. Here's a minimal example:
+
+```vue
+<script setup lang="ts">
+import { BreadTag } from '@lpkitvue/bread-tag';
+import type { BreadTagTypes } from '@lpkitvue/bread-tag';
+
+const breadcrumbs: BreadTagTypes = [
+  { title: 'Home', slug: '/' },
+  { title: 'Products', slug: '/products' },
+  { title: 'Electronics', slug: '/products/electronics' },
+];
+</script>
+
+<template>
+  <BreadTag title="Electronics" :breadTagList="breadcrumbs" separator="chevron" />
+</template>
+```
+
+## Breadcrumb Items
+
+Each breadcrumb item accepts the following properties:
+
+| Property  | Type     | Description                                      |
+| --------- | -------- | ------------------------------------------------ |
+| `title`   | `string` | Text to display for the breadcrumb item          |
+| `slug`    | `string` | URL or path for the item (required)              |
+| `icon`    | `string` | HTML string for an icon to display with the item |
+| `classLi` | `string` | CSS classes to apply to the list item element    |
+| `classA`  | `string` | CSS classes to apply to the link element         |
+
+## Separator Styles
+
+The component provides five built-in separator styles:
+
+- `chevron` (default) - A right-pointing chevron (>)
+- `slash` - A forward slash (/)
+- `dot` - A dot or bullet point (•)
+- `dash` - A dash or hyphen (-)
+- `arrow` - A right-pointing arrow (→)
+
+Example:
+
+```vue
+<BreadTag title="Products" :breadTagList="breadcrumbs" separator="slash" />
+```
+
+You can also provide a custom separator by passing an HTML string:
+
+```vue
+<BreadTag title="Products" :breadTagList="breadcrumbs" separator="<span class='mx-2'>|</span>" />
+```
+
+## Responsive Behavior
+
+For long breadcrumb trails, especially on mobile devices, you can set a maximum number of visible items:
+
+```vue
+<BreadTag title="Deep Nested Page" :breadTagList="breadcrumbs" :maxItems="4" />
+```
+
+When `maxItems` is set, the component will show:
+
+- The first item (typically "Home")
+- The last (`maxItems - 1`) items
+- An ellipsis (...) to indicate truncation
+
+## Icons in Breadcrumbs
+
+Add visual cues to your breadcrumbs with icons:
+
+```vue
+<BreadTag
+  title="User Settings"
+  :breadTagList="[
+    {
+      title: 'Home',
+      slug: '/',
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>'
+    },
+    {
+      title: 'Users',
+      slug: '/users',
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>'
+    },
+    {
+      title: 'Settings',
+      slug: '/users/settings',
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>'
+    },
+  ]"
+/>
+```
+
+You can also use the `@lpkitvue/font-icon` component for icons:
+
+```vue
+<script setup lang="ts">
+import { BreadTag } from '@lpkitvue/bread-tag';
+import { LpIcon } from '@lpkitvue/font-icon';
+
+const homeIcon = `<span class="inline-flex items-center">${LpIcon({ icon: 'home', size: 'sm' })}</span>`;
+</script>
+```
+
+## SEO Enhancement
+
+The BreadTag component automatically generates structured data in JSON-LD format for improved SEO. This helps search engines understand the page hierarchy and can enhance your site's appearance in search results:
+
+```vue
+<BreadTag
+  title="SEO-Friendly Breadcrumbs"
+  description="Additional page description for SEO"
+  :breadTagList="breadcrumbs"
+  :structured="true"
+/>
+```
+
+The `structured` prop (default: `true`) enables this feature. When enabled, the component adds schema.org BreadcrumbList markup as JSON-LD to the page.
+
+## Custom Styling
+
+Customize the appearance of both active and inactive breadcrumb items:
+
+```vue
+<BreadTag
+  title="Custom Styled Breadcrumbs"
+  :breadTagList="breadcrumbs"
+  activeClass="text-green-600 font-bold"
+  inactiveClass="text-blue-500 hover:text-blue-700"
+/>
+```
+
+You can also apply custom classes to individual breadcrumb items:
+
+```vue
+<BreadTag
+  title="Custom Item Styling"
+  :breadTagList="[
+    { title: 'Home', slug: '/', classA: 'text-lg font-bold' },
+    { title: 'Products', slug: '/products', classLi: 'mx-2' },
+    { title: 'Electronics', slug: '/products/electronics' },
+  ]"
+/>
+```
+
+## Dynamic Breadcrumbs
+
+Create dynamic breadcrumbs based on the current route:
+
+```vue
+<script setup lang="ts">
+import { BreadTag } from '@lpkitvue/bread-tag';
+import type { BreadTagTypes } from '@lpkitvue/bread-tag';
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+
+const breadcrumbs = computed(() => {
+  const pathSegments = route.path.split('/').filter(Boolean);
+  const breadcrumbItems: BreadTagTypes = [{ title: 'Home', slug: '/' }];
+
+  let currentPath = '';
+  pathSegments.forEach((segment) => {
+    currentPath += `/${segment}`;
+    breadcrumbItems.push({
+      title: segment.charAt(0).toUpperCase() + segment.slice(1),
+      slug: currentPath,
+    });
+  });
+
+  return breadcrumbItems;
+});
+</script>
+
+<template>
+  <BreadTag :title="route.meta.title || 'Page'" :breadTagList="breadcrumbs" />
+</template>
+```
+
+## Global Configuration
+
+Set default options for all BreadTag components:
+
+```typescript
+import { setSiteTitle, setSeparator, setConfig } from '@lpkitvue/bread-tag';
+
+// Set default site title
+setSiteTitle('My Website');
+
+// Set default separator
+setSeparator('slash');
+
+// Or set multiple config options at once
+setConfig({
+  siteTitle: 'My Website',
+  separator: 'slash',
+  autoTitle: true,
+  maxItems: 5,
+  structured: true,
+  activeClass: 'text-blue-500 font-bold',
+  inactiveClass: 'text-gray-500 hover:text-gray-700',
+});
+```
+
+## Complete API Reference
+
+### Props
+
+| Prop            | Type                    | Default                                                  | Description                                                  |
+| --------------- | ----------------------- | -------------------------------------------------------- | ------------------------------------------------------------ |
+| `title`         | `string`                | `'default-site-title'`                                   | Page title (will update document title if autoTitle is true) |
+| `description`   | `string`                | `''`                                                     | Optional description for SEO purposes                        |
+| `breadTagList`  | `BreadTagTypes`         | `[{ slug: 'javascript:void(0)' }]`                       | Array of breadcrumb items                                    |
+| `separator`     | `BreadTagSeparatorType` | `'chevron'`                                              | Separator style between items                                |
+| `autoTitle`     | `boolean`               | `true`                                                   | Whether to automatically update document title               |
+| `maxItems`      | `number`                | `0`                                                      | Maximum number of items to display (0 = no limit)            |
+| `structured`    | `boolean`               | `true`                                                   | Whether to include structured data for SEO                   |
+| `activeClass`   | `string`                | `'text-primary'`                                         | CSS class for active breadcrumb item                         |
+| `inactiveClass` | `string`                | `'hover:text-gray-500/70 dark:hover:text-white-dark/70'` | CSS class for inactive items                                 |
+
+### Types
+
+```typescript
+type BreadTagSeparatorType = 'chevron' | 'slash' | 'dot' | 'dash' | 'arrow' | string;
+
+type BreadTagType = {
+  title?: string;
+  slug: string;
+  icon?: string;
+  classLi?: string;
+  classA?: string;
+  active?: boolean;
+  isLast?: boolean;
+  isMobile?: boolean;
+};
+
+type BreadTagTypes = BreadTagType[];
+
+interface BreadTagOptions {
+  title: string;
+  description?: string;
+  breadTagList: BreadTagTypes;
+  separator?: BreadTagSeparatorType;
+  autoTitle?: boolean;
+  maxItems?: number;
+  structured?: boolean;
+  activeClass?: string;
+  inactiveClass?: string;
+}
+```
+
+## Accessibility Considerations
+
+The BreadTag component follows accessibility best practices:
+
+- Uses semantic HTML with proper `<nav>`, `<ol>`, and `<li>` elements
+- Includes appropriate ARIA attributes (`aria-label="Breadcrumb"`, `aria-current="page"`)
+- Provides structured data that benefits screen readers
+- Maintains keyboard navigation support
+- Preserves visible focus states
+
+## Common Use Cases
+
+### E-commerce Category Navigation
+
+```vue
+<BreadTag
+  title="Men's Shoes"
+  :breadTagList="[
+    { title: 'Home', slug: '/' },
+    { title: 'Men', slug: '/men' },
+    { title: 'Clothing', slug: '/men/clothing' },
+    { title: 'Shoes', slug: '/men/clothing/shoes' },
+  ]"
+/>
+```
+
+### Documentation Navigation
+
+```vue
+<BreadTag
+  title="Installation Guide"
+  :breadTagList="[
+    { title: 'Docs', slug: '/docs' },
+    { title: 'Getting Started', slug: '/docs/getting-started' },
+    { title: 'Installation', slug: '/docs/getting-started/installation' },
+  ]"
+  separator="slash"
+/>
+```
+
+### Admin Dashboard
+
+```vue
+<BreadTag
+  title="User Management"
+  :breadTagList="[
+    { title: 'Dashboard', slug: '/admin', icon: '<svg>...</svg>' },
+    { title: 'User Management', slug: '/admin/users', icon: '<svg>...</svg>' },
+  ]"
+  separator="chevron"
+/>
+```
+
+## Best Practices
+
+1. **Keep breadcrumb labels concise** - Use short, descriptive labels that clearly indicate the content of the referenced page
+2. **Maintain hierarchy** - Breadcrumbs should reflect the true hierarchical structure of your site
+3. **Use icons judiciously** - Icons can enhance usability but avoid overusing them
+4. **Ensure visual distinction** - The active/current item should be visually distinct from navigation links
+5. **Consider responsive layouts** - Use `maxItems` for long breadcrumb trails on mobile devices
+6. **Enable structured data** - Keep the `structured` prop enabled for SEO benefits
+7. **Test with screen readers** - Verify that the breadcrumb navigation works well with assistive technologies
+
+## Integration with Vue Router
+
+For seamless integration with Vue Router, use dynamic breadcrumbs based on route metadata:
+
+```typescript
+// router.ts
+const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: Home,
+    meta: {
+      title: 'Home',
+      breadcrumb: 'Home',
+    },
+  },
+  {
+    path: '/products',
+    name: 'products',
+    component: Products,
+    meta: {
+      title: 'Products',
+      breadcrumb: 'Products',
+    },
+    children: [
+      {
+        path: ':category',
+        name: 'product-category',
+        component: ProductCategory,
+        meta: {
+          title: 'Category',
+          breadcrumb: (route: any) => {
+            const category = route.params.category;
+            return category.charAt(0).toUpperCase() + category.slice(1);
+          },
+        },
+      },
+    ],
+  },
+];
+```
+
+```vue
+<script setup lang="ts">
+import { BreadTag } from '@lpkitvue/bread-tag';
+import type { BreadTagTypes } from '@lpkitvue/bread-tag';
+import { computed } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+
+const route = useRoute();
+const router = useRouter();
+
+const breadcrumbs = computed(() => {
+  const breadcrumbItems: BreadTagTypes = [];
+
+  // Find matched routes and create breadcrumb items
+  const matched = route.matched;
+  matched.forEach((route) => {
+    const breadcrumb = route.meta.breadcrumb;
+    const title = typeof breadcrumb === 'function' ? breadcrumb(route) : breadcrumb;
+
+    if (title) {
+      breadcrumbItems.push({
+        title,
+        slug: router.resolve(route).href,
+      });
+    }
+  });
+
+  return breadcrumbItems;
+});
+</script>
+
+<template>
+  <BreadTag :title="route.meta.title" :breadTagList="breadcrumbs" />
+</template>
+```
+
+## Troubleshooting
+
+### Breadcrumbs Not Showing Active State
+
+The active state is determined by comparing the `slug` with the current path. Ensure that:
+
+1. Your slugs match the actual paths in your application
+2. For nested routes, use absolute paths rather than relative paths
+3. Check that the router is properly set up with the correct base path
+
+### Icons Not Displaying
+
+If icons aren't appearing:
+
+1. Ensure the HTML string in the `icon` property is valid
+2. Verify that SVG attributes use the correct syntax
+3. For external icon libraries, check that the necessary CSS is loaded
+
+### SEO Structured Data Not Working
+
+To ensure structured data is properly implemented:
+
+1. Verify that the `structured` prop is set to `true`
+2. Use absolute URLs for `slug` values when SEO is important
+3. Test with Google's Rich Results Test tool to verify proper implementation
+
+## Browser Support
+
+The BreadTag component is compatible with all modern browsers:
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## Conclusion
+
+The BreadTag component provides a comprehensive solution for breadcrumb navigation in Vue 3 applications. With its focus on accessibility, SEO, and flexibility, it helps developers create intuitive navigation experiences while following best practices for user interface design.

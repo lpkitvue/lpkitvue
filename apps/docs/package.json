@@ -1,0 +1,48 @@
+{
+  "name": "lpkitvue",
+  "author": {
+    "name": "Osman Burak ERGEN",
+    "email": "burak.ergen@outlook.com.tr",
+    "url": "https://github.com/lpkitvue"
+  },
+  "version": "1.0.0",
+  "description": "A comprehensive, modular Vue 3 component library designed for building modern, responsive, and accessible web applications",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs:dev": "vitepress dev",
+    "docs:build": "cross-env __VUE_PROD_DEVTOOLS__=false NODE_ENV=production vitepress build",
+    "docs:preview": "vitepress preview",
+    "docs:sitemap": "vitepress-sitemap --hostname https://lpkitvue.github.io/lpkitvue"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "components",
+    "ui-library",
+    "typescript",
+    "frontend",
+    "web-development",
+    "design-system",
+    "accessibility",
+    "a11y"
+  ],
+  "homepage": "https://lpkitvue.github.io/lpkitvue/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lpkitvue/lpkitvue"
+  },
+  "bugs": {
+    "url": "https://github.com/lpkitvue/lpkitvue/issues"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "vitepress": "^1.6.3"
+  },
+  "dependencies": {
+    "cache": "^3.0.0",
+    "clean": "^4.0.2",
+    "vue": "^3.5.13"
+  }
+}

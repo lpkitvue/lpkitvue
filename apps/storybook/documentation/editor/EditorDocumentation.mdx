@@ -1,0 +1,415 @@
+# Editor Component
+
+The `@lpkitvue/editor` component provides a powerful rich text editing experience for Vue 3 applications. It offers a comprehensive set of text formatting tools, paragraph styling options, and a simple interface that integrates seamlessly with your forms and content management systems.
+
+## Installation
+
+```bash
+npm install @lpkitvue/editor
+```
+
+## Overview
+
+Rich text editing is essential for modern web applications that need content creation capabilities. The Editor component delivers a complete solution with:
+
+- Text formatting controls (bold, italic, strikethrough, underline)
+- Paragraph styling and headings
+- Text alignment options
+- Color selection
+- List creation
+- Two-way data binding with v-model
+- Responsive design
+
+## Basic Usage
+
+The Editor component requires minimal setup to get started:
+
+```vue
+<script setup lang="ts">
+import { LpEditor } from '@lpkitvue/editor';
+import { ref } from 'vue';
+
+const content = ref('<p>This is some initial content for the editor.</p>');
+</script>
+
+<template>
+  <LpEditor v-model="content" placeholder="Start typing..." />
+</template>
+```
+
+## Editor Props
+
+| Prop          | Type      | Default             | Description                           |
+| ------------- | --------- | ------------------- | ------------------------------------- |
+| `modelValue`  | `string`  | `''`                | The HTML content of the editor        |
+| `placeholder` | `string`  | `'Start typing...'` | Placeholder text when editor is empty |
+| `readonly`    | `boolean` | `false`             | When true, content cannot be edited   |
+
+## Editor Events
+
+| Event               | Parameters        | Description                                |
+| ------------------- | ----------------- | ------------------------------------------ |
+| `update:modelValue` | `(value: string)` | Emitted when content changes (for v-model) |
+| `change`            | `(value: string)` | Emitted when content changes (debounced)   |
+
+## Formatting Options
+
+### Text Formatting
+
+The editor provides standard text formatting options through an intuitive toolbar:
+
+- **Bold** - Makes selected text bold
+- **Italic** - Italicizes selected text
+- **Strikethrough** - Adds a line through selected text
+- **Underline** - Underlines selected text
+
+### Paragraph Formatting
+
+The dropdown at the left of the toolbar allows you to structure your content with:
+
+- Normal paragraph
+- Heading 1
+- Heading 2
+- Heading 3
+- Heading 4
+- Heading 5
+- Heading 6
+
+### Alignment
+
+Control text alignment with the alignment buttons:
+
+- Align Left
+- Align Center
+- Align Right
+
+### Lists
+
+Create bulleted lists to organize information.
+
+### Text Color
+
+Use the color picker to change the color of selected text.
+
+## Examples
+
+### Readonly Editor
+
+When you need to display formatted content without allowing edits:
+
+```vue
+<script setup lang="ts">
+import { LpEditor } from '@lpkitvue/editor';
+import { ref } from 'vue';
+
+const articleContent = ref(`
+  <h1 style="text-align: center;">Article Title</h1>
+  <p>This is an article that users can read but not edit.</p>
+  <p>It contains <strong>formatted text</strong> and <em>styling</em>.</p>
+`);
+</script>
+
+<template>
+  <div class="article-display">
+    <h2>Article Preview</h2>
+    <LpEditor v-model="articleContent" :readonly="true" />
+  </div>
+</template>
+```
+
+### Form Integration
+
+Incorporate the editor into your forms for rich content submission:
+
+```vue
+<script setup lang="ts">
+import { LpEditor } from '@lpkitvue/editor';
+import { reactive } from 'vue';
+
+const formData = reactive({
+  title: '',
+  content: '',
+});
+
+const submitForm = () => {
+  // Process form submission
+  console.log('Submitting form with content:', formData);
+  // Send to server, etc.
+};
+</script>
+
+<template>
+  <form @submit.prevent="submitForm" class="content-form">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input id="title" v-model="formData.title" type="text" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+      <label for="content">Content</label>
+      <LpEditor id="content" v-model="formData.content" placeholder="Write your article content here..." />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</template>
+```
+
+### Tracking Content Changes
+
+Monitor content changes in real-time:
+
+```vue
+<script setup lang="ts">
+import { LpEditor } from '@lpkitvue/editor';
+import { ref } from 'vue';
+
+const content = ref('<p>Edit this content to see changes</p>');
+const lastUpdate = ref('No changes yet');
+
+const handleContentChange = (newContent: string) => {
+  lastUpdate.value = new Date().toLocaleTimeString();
+};
+</script>
+
+<template>
+  <div class="editor-container">
+    <LpEditor v-model="content" placeholder="Start typing..." @change="handleContentChange" />
+    <div class="change-tracker">
+      <p>Last updated: {{ lastUpdate }}</p>
+    </div>
+  </div>
+</template>
+```
+
+### Dynamic Editor Configuration
+
+Customize the editor based on user roles or preferences:
+
+```vue
+<script setup lang="ts">
+import { LpEditor } from '@lpkitvue/editor';
+import { ref, computed } from 'vue';
+
+const userRole = ref('editor'); // Could be 'admin', 'editor', or 'viewer'
+const content = ref('<p>This content can be edited based on user role.</p>');
+
+const isReadonly = computed(() => {
+  return userRole.value === 'viewer';
+});
+
+const toggleUserRole = () => {
+  if (userRole.value === 'editor') {
+    userRole.value = 'viewer';
+  } else {
+    userRole.value = 'editor';
+  }
+};
+</script>
+
+<template>
+  <div class="role-based-editor">
+    <div class="role-toggle">
+      <p>Current role: {{ userRole }}</p>
+      <button @click="toggleUserRole">Toggle to {{ userRole === 'editor' ? 'viewer' : 'editor' }}</button>
+    </div>
+
+    <LpEditor
+      v-model="content"
+      :readonly="isReadonly"
+      :placeholder="isReadonly ? 'Viewing only' : 'Start editing...'"
+    />
+  </div>
+</template>
+```
+
+## Best Practices
+
+### Content Sanitization
+
+Since the editor works with HTML content, it's important to sanitize content when:
+
+1. Displaying user-generated content
+2. Saving content to a database
+3. Rendering content from untrusted sources
+
+Consider using a sanitization library like DOMPurify before storing or displaying content from the editor.
+
+### Accessibility Considerations
+
+The editor is built with accessibility in mind, but keep these tips in mind:
+
+- Provide clear labels when using the editor in forms
+- Ensure sufficient color contrast in your application
+- Test with screen readers and keyboard navigation
+
+### Performance
+
+For optimal performance when using the editor:
+
+- Avoid placing many editor instances on a single page
+- Use the debounced `change` event for operations like auto-save
+- Consider using a virtual scrolling solution for pages with large amounts of content
+
+## Keyboard Shortcuts
+
+The editor supports common keyboard shortcuts for formatting:
+
+- **Bold**: Ctrl/Cmd + B
+- **Italic**: Ctrl/Cmd + I
+- **Underline**: Ctrl/Cmd + U
+
+## TypeScript Support
+
+The editor component is built with TypeScript and exports these types:
+
+```typescript
+// Available types
+import type { EditorProps, EditorEmits, FormatState } from '@lpkitvue/editor';
+
+// Editor props interface
+interface EditorProps {
+  modelValue: string;
+  placeholder?: string;
+  readonly?: boolean;
+}
+
+// Editor emit events
+interface EditorEmits {
+  (e: 'update:modelValue', value: string): void;
+  (e: 'change', value: string): void;
+}
+
+// Format state interface
+interface FormatState {
+  bold: boolean;
+  italic: boolean;
+  strikethrough: boolean;
+  underline: boolean;
+  alignment: 'left' | 'center' | 'right';
+  color: string;
+}
+```
+
+## Integration with Other Components
+
+### Using with Card Component
+
+The editor works well inside a card for a complete content editing experience:
+
+```vue
+<script setup lang="ts">
+import { LpEditor } from '@lpkitvue/editor';
+import { Card } from '@lpkitvue/card';
+import { ref } from 'vue';
+
+const content = ref('<p>Edit this content...</p>');
+</script>
+
+<template>
+  <Card title="Content Editor">
+    <LpEditor v-model="content" placeholder="Start creating your content..." />
+  </Card>
+</template>
+```
+
+### Form Integration with Validation
+
+For advanced forms with validation:
+
+```vue
+<script setup lang="ts">
+import { LpEditor } from '@lpkitvue/editor';
+import { FormItem } from '@lpkitvue/form';
+import { ref, reactive } from 'vue';
+
+const content = ref('<p>Your article content here...</p>');
+const form = reactive({
+  title: '',
+  category: '',
+  content: content.value,
+});
+
+const validateContent = () => {
+  // Simple validation example
+  return content.value.length > 20;
+};
+
+const submitForm = () => {
+  form.content = content.value;
+  if (validateContent()) {
+    console.log('Form submitted:', form);
+  } else {
+    console.error('Content is too short');
+  }
+};
+</script>
+
+<template>
+  <form @submit.prevent="submitForm">
+    <FormItem
+      :fields="[
+        {
+          name: 'title',
+          label: 'Article Title',
+          item: 'input',
+          itemType: 'text',
+          required: true,
+          visible: true,
+          defaultValue: form.title,
+          rules: 'required',
+        },
+        {
+          name: 'category',
+          label: 'Category',
+          item: 'select',
+          required: true,
+          visible: true,
+          defaultValue: form.category,
+          rules: 'required',
+          options: [
+            { label: 'Technology', code: 'tech' },
+            { label: 'Business', code: 'business' },
+            { label: 'Health', code: 'health' },
+          ],
+        },
+      ]"
+      :onSubmit="submitForm"
+    />
+
+    <div class="form-group">
+      <label>Content <span class="required">*</span></label>
+      <LpEditor v-model="content" placeholder="Write your article content here..." />
+      <p v-if="content.length <= 20" class="text-danger">Content must be longer than 20 characters</p>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Submit Article</button>
+    </div>
+  </form>
+</template>
+```
+
+## Browser Support
+
+The editor component is compatible with all modern browsers:
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## Limitations
+
+Current limitations of the editor component:
+
+- No support for image uploading (can be added using HTML)
+- Limited table editing capabilities
+- No spellcheck integration
+- Limited mobile touch support for complex formatting
+
+## Conclusion
+
+The LpEditor component provides a powerful yet easy-to-use rich text editing experience for your Vue 3 applications. With its comprehensive formatting options, responsive design, and seamless Vue integration, it's ideal for content management systems, forms with rich content, and any application requiring text editing capabilities beyond simple inputs.

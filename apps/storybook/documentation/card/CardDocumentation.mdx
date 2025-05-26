@@ -1,0 +1,418 @@
+# Card Components
+
+The `@lpkitvue/card` package provides a variety of card components for displaying content in different formats and layouts within your Vue applications.
+
+## Installation
+
+```bash
+npm install @lpkitvue/card
+```
+
+## Available Components
+
+The package exports the following card components:
+
+- `Card` - Basic card with header, content, and optional footer
+- `ImageCard` - Card with image display capabilities
+- `FormCard` - Card designed for forms with submit/clear actions
+- `CollapsableCard` - Card with expandable/collapsible content
+- `TableCard` - Card optimized for displaying data tables with action buttons
+
+## Basic Card
+
+The basic `Card` component provides a simple container with a title and content area.
+
+```vue
+<script setup lang="ts">
+import { Card } from '@lpkitvue/card';
+</script>
+
+<template>
+  <Card title="Basic Card Example">
+    <p>This is some content inside the card.</p>
+  </Card>
+</template>
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `''` | The title displayed in the card header |
+| `buttons` | `Array` | `[]` | Optional action buttons to display in the header |
+
+### Slots
+
+| Slot | Description |
+|------|-------------|
+| `default` | Main content area of the card |
+| `header` | Custom header content (overrides the title prop) |
+| `footer` | Optional footer content |
+
+## ImageCard
+
+The `ImageCard` component is designed for displaying images with optional content below.
+
+```vue
+<script setup lang="ts">
+import { ImageCard } from '@lpkitvue/card';
+</script>
+
+<template>
+  <ImageCard
+    title="Product Image"
+    imageUrl="/path/to/image.jpg"
+    aspectRatio="16/9"
+    alt="Product description"
+  >
+    <p>Product details can go here.</p>
+  </ImageCard>
+</template>
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | Required | The title displayed in the card header |
+| `imageUrl` | `string` | Required | URL of the image to display |
+| `aspectRatio` | `number` | `16/9` | Aspect ratio of the image container |
+| `alt` | `string` | `''` | Alt text for the image for accessibility |
+| `imageClass` | `string` | `''` | Additional CSS classes for the image |
+| `contentClass` | `string` | `''` | Additional CSS classes for the content area |
+| `headerClass` | `string` | `''` | Additional CSS classes for the header |
+
+### Features
+
+- Lazy loading of images for better performance
+- Loading placeholder while image loads
+- Error display if image fails to load
+- Maintains consistent aspect ratio
+
+## FormCard
+
+The `FormCard` component is designed specifically for forms with built-in submit and clear buttons.
+
+```vue
+<script setup lang="ts">
+import { FormCard } from '@lpkitvue/card';
+
+const handleSubmit = (event) => {
+  // Handle form submission
+  console.log('Form submitted');
+};
+
+const handleClear = () => {
+  // Handle form clearing
+  console.log('Form cleared');
+};
+</script>
+
+<template>
+  <FormCard
+    title="Contact Form"
+    submitText="Send"
+    clearText="Reset"
+    :onSubmit="handleSubmit"
+    :onClear="handleClear"
+  >
+    <div class="form-fields">
+      <!-- Your form fields here -->
+      <input type="text" placeholder="Name" />
+      <input type="email" placeholder="Email" />
+    </div>
+  </FormCard>
+</template>
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | Required | The title displayed in the card header |
+| `loading` | `boolean` | `false` | Whether the form is in a loading/submitting state |
+| `submitText` | `string` | `'Submit'` | Text for the submit button |
+| `clearText` | `string` | `'Clear'` | Text for the clear button |
+| `onSubmit` | `Function` | `undefined` | Handler for form submission |
+| `onClear` | `Function` | `undefined` | Handler for form clearing |
+| `disableSubmit` | `boolean` | `false` | Whether to disable the submit button |
+| `headerClass` | `string` | `''` | Additional CSS classes for the header |
+| `contentClass` | `string` | `''` | Additional CSS classes for the content area |
+| `footerClass` | `string` | `''` | Additional CSS classes for the footer |
+
+### Events
+
+| Event | Description |
+|-------|-------------|
+| `submit` | Emitted when the form is submitted |
+| `clear` | Emitted when the form is cleared |
+
+### Features
+
+- Loading overlay during form submission
+- Built-in form reset functionality
+- Customizable button text
+- Footer slot for custom actions
+
+## CollapsableCard
+
+The `CollapsableCard` component provides expandable/collapsible content that can be toggled by clicking the header.
+
+```vue
+<script setup lang="ts">
+import { CollapsableCard } from '@lpkitvue/card';
+</script>
+
+<template>
+  <CollapsableCard
+    title="FAQ Section"
+    :defaultCollapsed="false"
+  >
+    <p>This content can be collapsed or expanded by clicking on the header.</p>
+    <p>Great for FAQ sections, details, or any content that should be optionally hidden.</p>
+  </CollapsableCard>
+</template>
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | Required | The title displayed in the card header |
+| `defaultCollapsed` | `boolean` | `false` | Whether the card should be initially collapsed |
+| `headerClass` | `string` | `''` | Additional CSS classes for the header |
+| `contentClass` | `string` | `''` | Additional CSS classes for the content area |
+| `animationDuration` | `number` | `300` | Duration of collapse/expand animation in milliseconds |
+
+### Events
+
+| Event | Description |
+|-------|-------------|
+| `collapse` | Emitted when the card is collapsed |
+| `expand` | Emitted when the card is expanded |
+
+### Features
+
+- Smooth animation during expand/collapse
+- Customizable animation duration
+- Events for tracking collapse/expand state changes
+- Accessible toggle controls
+
+## TableCard
+
+The `TableCard` component is optimized for displaying data tables with configurable action buttons in the header.
+
+```vue
+<script setup lang="ts">
+import { TableCard } from '@lpkitvue/card';
+
+const handleAdd = () => {
+  console.log('Add button clicked');
+};
+
+const handleExport = () => {
+  console.log('Export button clicked');
+};
+
+const handleFilter = () => {
+  console.log('Filter button clicked');
+};
+
+const tableButtons = [
+  {
+    text: 'Add New',
+    type: 'add',
+    onClick: handleAdd,
+    className: 'btn-primary'
+  },
+  {
+    text: 'Export',
+    type: 'export-excel',
+    onClick: handleExport,
+    className: 'btn-success'
+  },
+  {
+    text: 'Filter',
+    type: 'filter',
+    onClick: handleFilter,
+    className: 'btn-light'
+  }
+];
+</script>
+
+<template>
+  <TableCard
+    title="User Data"
+    :buttons="tableButtons"
+  >
+    <table>
+      <!-- Your table content here -->
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>John Doe</td>
+          <td>john@example.com</td>
+        </tr>
+      </tbody>
+    </table>
+  </TableCard>
+</template>
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | Required | The title displayed in the card header |
+| `buttons` | `Array` | `[]` | Action buttons to display in the header |
+| `headerClass` | `string` | `''` | Additional CSS classes for the header |
+| `contentClass` | `string` | `''` | Additional CSS classes for the content area |
+
+### Button Configuration
+
+Each button in the `buttons` array accepts the following properties:
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `text` | `string` | Button label text |
+| `type` | `string` | One of: 'add', 'filter', 'export-excel', 'export-csv' |
+| `onClick` | `Function` | Button click handler |
+| `className` | `string` | CSS class for button styling |
+| `disabled` | `boolean` | Whether the button is disabled |
+| `description` | `string` | Optional description for accessibility |
+
+### Features
+
+- Pre-configured button types with appropriate icons
+- Responsive header design
+- Well-suited for data tables and lists
+- Supports different button styles through `className` prop
+
+## Styling
+
+All card components include default styling that can be customized through various class props.
+
+The card components include the following CSS classes:
+
+```css
+.card, .form-card, .table-card, .collapsable-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 0.375rem;
+  overflow: hidden;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.card-content {
+  padding: 1rem;
+}
+
+.card-footer {
+  padding: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+```
+
+You can override these styles by providing custom classes to the `headerClass`, `contentClass`, and `footerClass` props.
+
+## Example: Combining Card Components
+
+Here's an example of using multiple card components together:
+
+```vue
+<template>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <Card title="Welcome">
+      <p>Welcome to our application dashboard.</p>
+    </Card>
+
+    <CollapsableCard title="Quick Tips">
+      <ul>
+        <li>Use the search bar to find content quickly</li>
+        <li>Export data using the Export button</li>
+        <li>Add new items with the Add button</li>
+      </ul>
+    </CollapsableCard>
+
+    <ImageCard
+      title="Featured Product"
+      imageUrl="/images/product.jpg"
+      alt="Our featured product"
+    >
+      <p>This month's featured product is now available.</p>
+    </ImageCard>
+
+    <FormCard
+      title="Quick Contact"
+      submitText="Send Message"
+    >
+      <input type="text" placeholder="Your message" class="w-full p-2 border rounded" />
+    </FormCard>
+  </div>
+</template>
+
+<script setup>
+import {
+  Card,
+  CollapsableCard,
+  ImageCard,
+  FormCard
+} from '@lpkitvue/card';
+</script>
+```
+
+## Accessibility
+
+All card components are built with accessibility in mind:
+
+- Proper heading structure with semantic HTML
+- ARIA attributes where appropriate
+- Keyboard navigable interactive elements
+- Sufficient color contrast
+- Alt text support for images
+
+## TypeScript Support
+
+The package includes TypeScript definitions for all components and props:
+
+```typescript
+import type {
+  ImageCardProps,
+  FormCardProps,
+  CollapsableCardProps,
+  TableCardProps,
+  TableCardButton
+} from '@lpkitvue/card';
+```
+
+## Dependencies
+
+The `@lpkitvue/card` package has the following dependencies:
+
+- Vue 3.5.13 or higher (peer dependency)
+- `@lpkitvue/button` (for form and table cards)
+- `@lpkitvue/font-icon` (for icons)
+
+## Browser Support
+
+The card components are compatible with all modern browsers:
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)

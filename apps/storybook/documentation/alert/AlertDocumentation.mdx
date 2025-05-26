@@ -1,0 +1,140 @@
+# Alert Component
+
+The Alert component provides contextual feedback messages for typical user actions. Use alerts to notify users about the status of their actions, system status, or to provide general information.
+
+## Overview
+
+Alerts are designed to attract user attention without interrupting their workflow. They come in four variants for different contexts: success, error, warning, and info.
+
+## Basic Usage
+
+Alerts provide important feedback to users. Choose a variant that matches the context of your message.
+
+## Alert Variants
+
+The alert component comes in four standard variants, each with appropriate styling and iconography.
+
+### Success Alerts
+
+Use success alerts to provide positive feedback when an operation has completed successfully.
+
+```vue
+<SuccessAlert
+  msg="Profile updated successfully!"
+  :closable="true"
+  @close="handleClose"
+/>
+```
+
+### Error Alerts
+
+Error alerts indicate a dangerous or potentially negative action or outcome.
+
+```vue
+<ErrorAlert
+  msg="Failed to save changes. Please try again."
+  :closable="true"
+  @close="handleClose"
+/>
+```
+
+### Warning Alerts
+
+Warning alerts suggest caution or alert the user to a non-critical issue.
+
+```vue
+<WarningAlert
+  msg="Your session will expire in 5 minutes."
+  :closable="true"
+  @close="handleClose"
+/>
+```
+
+### Info Alerts
+
+Info alerts provide general information or updates to the user that are helpful but not critical.
+
+```vue
+<InfoAlert
+  msg="System maintenance scheduled for tonight."
+  :closable="true"
+  @close="handleClose"
+/>
+```
+
+## Non-Dismissible Alerts
+
+When you want an alert to remain persistent, set the `closable` prop to `false`.
+
+
+## Custom Styling
+
+Alerts can be customized via the `customClass` prop to match your application's design.
+
+
+## Rich Content
+
+For more complex content, you can use the `AlertBase` component directly with slot content.
+
+
+## Component API
+
+### Alert Component
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `msg` | `string` | *Required* | The alert message content |
+| `component` | `'success' \| 'error' \| 'warning' \| 'info'` | *Required* | Alert variant |
+| `closable` | `boolean` | `false` | Whether the alert can be dismissed |
+| `customClass` | `string` | `''` | Additional CSS classes for styling |
+
+### AlertBase Component
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'success' \| 'error' \| 'warning' \| 'info'` | *Required* | Alert style variant |
+| `msg` | `string` | `''` | Alert message (not required if using slot) |
+| `closable` | `boolean` | `false` | Whether the alert can be dismissed |
+| `customClass` | `string` | `''` | Additional CSS classes for styling |
+| `showIcon` | `boolean` | `false` | Whether to show the variant-specific icon |
+
+### Variant-Specific Components
+
+`SuccessAlert`, `ErrorAlert`, `WarningAlert`, and `InfoAlert` all accept these props:
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `msg` | `string` | *Required* | The alert message content |
+| `closable` | `boolean` | `false` | Whether the alert can be dismissed |
+| `customClass` | `string` | `''` | Additional CSS classes for styling |
+
+## Events
+
+All alert components emit the following events:
+
+| Event | Description |
+|-------|-------------|
+| `close` | Emitted when the alert is closed |
+
+## Accessibility
+
+The Alert component is built with accessibility in mind:
+
+- Uses `role="alert"` to announce content to screen readers
+- Proper ARIA attributes for interactive elements
+- Keyboard accessibility for close buttons
+
+## Best Practices
+
+1. **Choose the appropriate variant** for the context of your message
+2. **Keep messages concise** and focused on a single piece of information
+3. **Use closable alerts** for information that the user may want to dismiss
+4. **Use non-closable alerts** for critical information that should remain visible
+5. **Position alerts logically** in the interface where users will notice them
+6. **Avoid overusing alerts** to prevent alert fatigue
+
+## Related Components
+
+- **Toast** - For temporary notification messages
+- **Modal** - For more interactive feedback requiring user action
+- **Banner** - For site-wide announcements

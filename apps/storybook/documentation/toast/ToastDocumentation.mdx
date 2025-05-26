@@ -1,0 +1,397 @@
+# Toast Component
+
+The `@lpkitvue/toast` component provides a flexible and powerful notification system for Vue 3 applications. It allows you to display non-intrusive messages to users with various styles, positions, and interactive elements.
+
+## Features
+
+- 🎯 Multiple toast positions (top-left, top-center, top-right, bottom-left, bottom-center, bottom-right)
+- 🎨 Various toast types (success, error, warning, info, default)
+- ⏱️ Configurable display durations with auto-dismiss
+- 🔄 Interactive toasts with action buttons
+- 📊 Toast stacking with configurable limits
+- 🎛️ Programmatic control (create, update, dismiss)
+- 🧩 Global configuration options
+- 📱 Responsive design that works across devices
+- ♿ Accessibility-friendly with ARIA attributes
+
+## Installation
+
+```bash
+npm install @lpkitvue/toast
+```
+
+## Basic Usage
+
+### As a Vue Plugin
+
+Register the toast system globally in your app:
+
+```typescript
+// main.ts
+import { createApp } from 'vue';
+import App from './App.vue';
+import { ToastPlugin } from '@lpkitvue/toast';
+
+const app = createApp(App);
+
+// Register the plugin with optional configuration
+app.use(ToastPlugin, {
+  defaultPosition: 'top-right',
+  defaultDuration: 5000,
+  maxToasts: 5
+});
+
+app.mount('#app');
+```
+
+Add the ToastManager component to your App.vue or layout component:
+
+```vue
+<template>
+  <div id="app">
+    <!-- Your app content -->
+    <ToastManager />
+  </div>
+</template>
+
+<script setup>
+// ToastManager is globally registered by the plugin
+</script>
+```
+
+Then use toasts anywhere in your components:
+
+```vue
+<script setup>
+// Access toast via the global property
+function showToast() {
+  this.$toast.success('Operation completed successfully!');
+}
+</script>
+```
+
+### Using the Composable
+
+For more control, use the `useToast` composable:
+
+```vue
+<script setup>
+import { useToast } from '@lpkitvue/toast';
+
+const { toast } = useToast();
+
+function showSuccessToast() {
+  toast.success('Operation completed successfully!');
+}
+
+function showErrorToast() {
+  toast.error('An error occurred while processing your request.');
+}
+
+function showWarningToast() {
+  toast.warning('Please review your information before proceeding.');
+}
+
+function showInfoToast() {
+  toast.info('New updates are available for your application.');
+}
+</script>
+
+<template>
+  <div>
+    <button @click="showSuccessToast">Show Success</button>
+    <button @click="showErrorToast">Show Error</button>
+    <button @click="showWarningToast">Show Warning</button>
+    <button @click="showInfoToast">Show Info</button>
+
+    <!-- Add ToastManager to your template -->
+    <ToastManager />
+  </div>
+</template>
+```
+
+## Toast Types
+
+The toast system provides several predefined types:
+
+- **success**: For successful operations (green)
+- **error**: For errors and failures (red)
+- **warning**: For warnings and cautions (yellow/orange)
+- **info**: For informational messages (blue)
+- **default**: For neutral messages (themed to primary color)
+
+```typescript
+// Create different types of toasts
+toast.success('Operation completed successfully!');
+toast.error('An error occurred while processing your request.');
+toast.warning('Please review your information before proceeding.');
+toast.info('New updates are available for your application.');
+toast.show('A default message'); // Default type
+```
+
+## Advanced Options
+
+### Position
+
+Control where toasts appear on the screen:
+
+```typescript
+toast.info({
+  message: 'This toast appears at the bottom right',
+  position: 'bottom-right'
+});
+```
+
+Available positions:
+- `top-left`
+- `top-center`
+- `top-right` (default)
+- `bottom-left`
+- `bottom-center`
+- `bottom-right`
+
+### Duration
+
+Control how long a toast is displayed:
+
+```typescript
+// Display for 3 seconds
+toast.info({
+  message: 'This disappears after 3 seconds',
+  duration: 3000
+});
+
+// Stay until manually dismissed
+toast.warning({
+  message: 'This will not auto-dismiss',
+  duration: 0
+});
+```
+
+### Titles and Content
+
+Add a title for more structure:
+
+```typescript
+toast.info({
+  title: 'Update Available',
+  message: 'A new version of the application is ready to install.'
+});
+```
+
+### Action Buttons
+
+Add interactive action buttons to your toasts:
+
+```typescript
+toast.warning({
+  title: 'Unsaved Changes',
+  message: 'You have unsaved changes. Would you like to save before continuing?',
+  duration: 0, // Don't auto-dismiss
+  action: {
+    text: 'Save Changes',
+    onClick: () => saveChanges()
+  }
+});
+```
+
+### Custom Icons
+
+Customize the icon displayed:
+
+```typescript
+toast.show({
+  message: 'Custom icon example',
+  type: 'info',
+  icon: 'bell' // Use a different icon
+});
+
+toast.show({
+  message: 'No icon',
+  type: 'info',
+  icon: '' // No icon
+});
+```
+
+### Programmatic Control
+
+Maintain references to your toasts for updates and dismissal:
+
+```typescript
+// Create a toast and store its ID
+const toastId = toast.info({
+  title: 'Processing',
+  message: 'Your request is being processed...',
+  duration: 0
+});
+
+// Later, update the toast
+toast.update(toastId, {
+  title: 'Completed',
+  message: 'Your request has been processed successfully!',
+  type: 'success',
+  duration: 3000
+});
+
+// Or dismiss it manually
+toast.dismiss(toastId);
+
+// Clear all toasts
+toast.clear();
+```
+
+### Custom Styling
+
+Apply custom styles to your toasts:
+
+```typescript
+toast.show({
+  message: 'This toast has custom styling',
+  className: 'my-custom-toast-class'
+});
+```
+
+Then define your custom styles:
+
+```css
+.my-custom-toast-class {
+  background-color: purple;
+  color: white;
+  border-radius: 20px;
+}
+```
+
+## Global Configuration
+
+You can set global defaults with the `updateConfig` method:
+
+```typescript
+const { toast, updateConfig } = useToast();
+
+updateConfig({
+  defaultPosition: 'bottom-center',
+  defaultDuration: 3000,
+  maxToasts: 3,
+  defaultClosable: true,
+  zIndex: 9999
+});
+```
+
+Or pass configuration when registering the plugin:
+
+```typescript
+app.use(ToastPlugin, {
+  defaultPosition: 'bottom-center',
+  defaultDuration: 3000,
+  maxToasts: 3
+});
+```
+
+## Toast Manager Component
+
+The `ToastManager` component renders toast containers at various positions:
+
+```vue
+<template>
+  <ToastManager
+    :defaultPosition="'top-right'"
+    :defaultDuration="5000"
+    :maxToasts="5"
+    :zIndex="9999"
+  />
+</template>
+```
+
+## Complete API
+
+### useToast Composable
+
+```typescript
+const {
+  // Basic methods
+  show,          // (options: ToastOptions | string) => string
+  dismiss,       // (id: string) => boolean
+  clear,         // () => void
+  update,        // (id: string, options: Partial<ToastOptions>) => boolean
+
+  // Shorthand methods
+  success,       // (options: Omit<ToastOptions, 'type'> | string) => string
+  error,         // (options: Omit<ToastOptions, 'type'> | string) => string
+  warning,       // (options: Omit<ToastOptions, 'type'> | string) => string
+  info,          // (options: Omit<ToastOptions, 'type'> | string) => string
+
+  // Configuration
+  updateConfig,  // (config: Partial<ToastGlobalOptions>) => void
+
+  // State
+  toasts,        // Readonly<Ref<Map<string, ToastItem>>>
+  config,        // Readonly<Ref<ToastGlobalOptions>>
+  getToastsByPosition // (position: ToastPosition) => ToastItem[]
+} = useToast();
+```
+
+### Toast Options
+
+```typescript
+interface ToastOptions {
+  // Required
+  message: string;
+
+  // Optional
+  title?: string;
+  type?: 'success' | 'error' | 'warning' | 'info' | 'default';
+  position?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
+  duration?: number;
+  closable?: boolean;
+  className?: string;
+  action?: {
+    text: string;
+    onClick: () => void;
+  };
+  icon?: string;
+  onClose?: () => void;
+  id?: string;
+}
+```
+
+### Global Options
+
+```typescript
+interface ToastGlobalOptions {
+  defaultPosition?: ToastPosition;
+  defaultDuration?: number;
+  maxToasts?: number;
+  defaultClosable?: boolean;
+  container?: string;
+  gap?: number;
+  zIndex?: number;
+}
+```
+
+## Accessibility
+
+The toast component follows accessibility best practices:
+
+- Uses `role="alert"` for appropriate screen reader announcements
+- Provides proper focus management
+- Ensures sufficient color contrast
+- Supports keyboard interaction with close and action buttons
+
+## Browser Support
+
+The toast component is compatible with all modern browsers:
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## Best Practices
+
+1. **Use appropriate toast types** for different message contexts
+2. **Keep messages concise** and to the point
+3. **Use titles for more complex messages** to improve scannability
+4. **Consider persistent toasts** for important information, but allow users to dismiss them
+5. **Position carefully** - top positions are more noticeable but can be intrusive
+6. **Limit the number of simultaneous toasts** to avoid overwhelming users
+7. **Test toast behavior on mobile devices** where screen space is limited

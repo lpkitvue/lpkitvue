@@ -1,0 +1,116 @@
+# Button Component
+
+The `@lpkitvue/button` package provides a variety of button components for different use cases in your Vue applications.
+
+## Installation
+
+```bash
+npm install @lpkitvue/button
+```
+
+## Available Components
+
+The package exports the following button components:
+
+- `TableAddButton` - Button with an "Add" icon, typically used in table toolbars
+- `TableExcelButton` - Button with an "Export" icon for exporting to Excel
+- `TableFilterButton` - Button with a "Filter" icon for filter functionality
+- `ClearButton` - Simple button for clearing forms
+- `SubmitButton` - Button for submitting forms
+
+## Usage
+
+```vue
+<script setup lang="ts">
+import { TableAddButton, ClearButton, SubmitButton } from '@lpkitvue/button';
+</script>
+
+<template>
+  <div class="button-container">
+    <TableAddButton text="Add New" @click="addItem" />
+    <ClearButton text="Clear Form" @click="clearForm" />
+    <SubmitButton text="Submit" type="submit" />
+  </div>
+</template>
+```
+
+## Props
+
+All button components accept the following props:
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `text` | `string` | varies by component | Button text content |
+| `type` | `'submit' \| 'button'` | `'button'` | HTML button type attribute |
+| `disabled` | `boolean` | `false` | Whether the button is disabled |
+| `name` | `string` | `'button'` | Name attribute for the button |
+| `onClick` | `() => void` | - | Click event handler |
+| `description` | `string` | `''` | Description for accessibility |
+
+### Additional props for table buttons:
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | `'btn-light'` | CSS class for styling |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'sm'` | Button size |
+
+## Button Variants
+
+### Style Variants
+
+The button components accept various className options:
+
+- `btn-primary` - Primary action buttons
+- `btn-secondary` - Secondary action buttons
+- `btn-success` - Success/confirmation buttons
+- `btn-danger` - Dangerous/destructive action buttons
+- `btn-warning` - Warning action buttons
+- `btn-info` - Informational buttons
+- `btn-dark` - Dark-themed buttons
+- `btn-light` - Light-themed buttons
+- `btn-link` - Buttons styled as links
+
+### Size Variants
+
+Table buttons support three sizes:
+
+- `sm` - Small buttons
+- `md` - Medium buttons
+- `lg` - Large buttons
+
+## Examples
+
+### Basic Button
+
+```vue
+<TableAddButton text="Add Item" />
+```
+
+### Styled Button
+
+```vue
+<TableFilterButton text="Filter" className="btn-primary" />
+```
+
+### Disabled Button
+
+```vue
+<SubmitButton text="Submit" disabled />
+```
+
+### With Click Handler
+
+```vue
+<TableExcelButton
+  text="Export to Excel"
+  :onClick="() => exportToExcel()"
+/>
+```
+
+### Different Sizes
+
+```vue
+<TableAddButton text="Small" size="sm" />
+<TableAddButton text="Medium" size="md" />
+<TableAddButton text="Large" size="lg" />
+```

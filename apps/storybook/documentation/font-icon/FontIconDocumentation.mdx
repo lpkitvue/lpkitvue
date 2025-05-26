@@ -1,0 +1,297 @@
+# Font Icon Component
+
+The `@lpkitvue/font-icon` package provides a flexible and easy-to-use icon component that integrates with the popular [Iconify](https://iconify.design/) library. It allows you to use a wide variety of icons in your Vue applications with consistent styling and customization options.
+
+## Installation
+
+```bash
+npm install @lpkitvue/font-icon
+```
+
+## Features
+
+- Access to thousands of icons from the Iconify library
+- Built-in Vue 3 support
+- TypeScript definitions included
+- Customizable size, color, and styling
+- Consistent API across icon sets
+- Built-in icons for common UI elements
+- Lightweight with minimal bundle size impact
+
+## Basic Usage
+
+```vue
+<script setup lang="ts">
+import { LpIcon } from '@lpkitvue/font-icon';
+</script>
+
+<template>
+  <LpIcon icon="check-circle" />
+</template>
+```
+
+## Props
+
+The `LpIcon` component accepts the following props:
+
+| Prop        | Type     | Default     | Description                     |
+| ----------- | -------- | ----------- | ------------------------------- |
+| `icon`      | `string` | `''`        | Icon name to display            |
+| `color`     | `string` | `'inherit'` | Color of the icon (CSS color)   |
+| `width`     | `string` | `'24'`      | Width of the icon               |
+| `height`    | `string` | `'24'`      | Height of the icon              |
+| `className` | `string` | `''`        | Additional CSS classes to apply |
+
+## Icon Names
+
+The component supports two formats for icon names:
+
+1. **Built-in icons** - Icons that are pre-registered with the component:
+
+- `lp:close-linear` - A close (X) icon
+- `lp:search` - A search icon
+- `lp:plus` - A plus icon
+
+2. **Iconify icons** - Any icon from the Iconify library, automatically prefixed with `solar:` and `-linear` suffix:
+
+- `check-circle` → `solar:check-circle-linear`
+- `alert-triangle` → `solar:alert-triangle-linear`
+- `user` → `solar:user-linear`
+
+## Examples
+
+### Basic Icon
+
+```vue
+<LpIcon icon="check-circle" />
+```
+
+### Custom Color
+
+```vue
+<LpIcon icon="alert-circle" color="#ff0000" />
+```
+
+### Custom Size
+
+```vue
+<LpIcon icon="info" width="32" height="32" />
+```
+
+### Using CSS Classes
+
+```vue
+<LpIcon icon="check-circle" className="text-green-500 mr-2" />
+```
+
+### Built-in Icons
+
+```vue
+<LpIcon icon="lp:close-linear" />
+<LpIcon icon="lp:search" />
+<LpIcon icon="lp:plus" />
+```
+
+## Integration with Other Components
+
+The `LpIcon` component is designed to integrate seamlessly with other lpkitvue components:
+
+### Button with Icon
+
+```vue
+<script setup lang="ts">
+import { IconButton } from '@lpkitvue/button';
+</script>
+
+<template>
+  <IconButton text="Add Item" icon="lp:plus" className="btn-primary" />
+</template>
+```
+
+### Alert with Icon
+
+```vue
+<script setup lang="ts">
+import { Alert } from '@lpkitvue/alert';
+</script>
+
+<template>
+  <Alert msg="Operation successful" component="success" />
+  <!-- The success alert internally uses LpIcon for the check icon -->
+</template>
+```
+
+## TypeScript Support
+
+The component includes full TypeScript support through the `FontIconTypes` interface:
+
+```typescript
+import { LpIcon } from '@lpkitvue/font-icon';
+import type { FontIconTypes } from '@lpkitvue/font-icon';
+
+// You can define icon props with type safety
+const iconProps: FontIconTypes = {
+  icon: 'check-circle',
+  color: '#00ff00',
+  width: '20',
+  height: '20',
+  className: 'custom-icon'
+};
+
+// Then use them in your template
+<LpIcon v-bind="iconProps" />
+```
+
+## Creating Dynamic Icons
+
+You can dynamically change icons based on application state:
+
+```vue
+<script setup lang="ts">
+import { LpIcon } from '@lpkitvue/font-icon';
+import { ref, computed } from 'vue';
+
+const isActive = ref(false);
+
+const toggleIcon = computed(() => {
+  return isActive.value ? 'check-circle' : 'close-circle';
+});
+
+const toggleColor = computed(() => {
+  return isActive.value ? '#00ff00' : '#ff0000';
+});
+
+const toggleStatus = () => {
+  isActive.value = !isActive.value;
+};
+</script>
+
+<template>
+  <button @click="toggleStatus" class="flex items-center">
+    <LpIcon :icon="toggleIcon" :color="toggleColor" width="18" height="18" className="mr-2" />
+    {{ isActive ? 'Active' : 'Inactive' }}
+  </button>
+</template>
+```
+
+## Advanced: Adding Custom Icons
+
+Although most cases are covered by the default icons and Iconify integration, you can add custom icons if needed:
+
+```vue
+<script setup lang="ts">
+import { LpIcon } from '@lpkitvue/font-icon';
+import { onMounted } from 'vue';
+import { addIcon } from '@iconify/vue';
+
+onMounted(() => {
+  // Register a custom icon
+  addIcon('custom:my-icon', {
+    body: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="..."></path></svg>',
+    width: 24,
+    height: 24,
+  });
+});
+</script>
+
+<template>
+  <LpIcon icon="custom:my-icon" />
+</template>
+```
+
+## Performance Considerations
+
+The `@lpkitvue/font-icon` package is designed to be lightweight and efficient:
+
+- Icons are loaded on-demand
+- The component only includes the icons you actually use
+- SVG-based rendering for crisp display at any size
+- No additional HTTP requests for icon fonts
+
+## Browser Support
+
+The component is compatible with all modern browsers:
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## Common Use Cases
+
+### Icon in Form Labels
+
+```vue
+<div class="form-group">
+  <label class="flex items-center">
+    <LpIcon icon="info" color="#888" width="16" height="16" className="mr-1" />
+    Username
+  </label>
+  <input type="text" class="form-input" />
+</div>
+```
+
+### Icon Buttons
+
+```vue
+<button class="btn btn-primary flex items-center">
+  <LpIcon icon="lp:plus" color="white" width="20" height="20" className="mr-2" />
+  Add Item
+</button>
+```
+
+### Status Indicators
+
+```vue
+<div class="flex items-center">
+  <LpIcon
+    icon="check-circle"
+    color="#00c853"
+    width="24"
+    height="24"
+    className="mr-2"
+  />
+  <span>Payment successful</span>
+</div>
+```
+
+### Navigation Icons
+
+```vue
+<nav class="sidebar">
+  <a href="#" class="sidebar-item flex items-center">
+    <LpIcon icon="home" width="20" height="20" className="mr-3" />
+    Dashboard
+  </a>
+  <a href="#" class="sidebar-item flex items-center">
+    <LpIcon icon="user" width="20" height="20" className="mr-3" />
+    Profile
+  </a>
+  <a href="#" class="sidebar-item flex items-center">
+    <LpIcon icon="settings" width="20" height="20" className="mr-3" />
+    Settings
+  </a>
+</nav>
+```
+
+## Troubleshooting
+
+### Icon Not Displaying
+
+If an icon is not displaying correctly:
+
+1. Check that the icon name is correct
+2. Try using the full Iconify notation explicitly: `solar:icon-name-linear`
+3. Ensure the component is properly imported
+
+### Custom Styling Not Applied
+
+If custom styling is not being applied:
+
+1. Ensure the `className` prop is used (not `class`)
+2. Check that your CSS classes are properly defined
+3. For specific color overrides, use the `color` prop instead of CSS
+
+## Conclusion
+
+The `@lpkitvue/font-icon` component provides a simple yet powerful way to add icons to your Vue 3 applications. With its integration with Iconify, you have access to thousands of icons while maintaining a consistent API and small bundle size.

@@ -1,0 +1,22 @@
+{
+  "name": "lpkitvue-storybook",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@storybook/manager-api": "^8.6.10",
+    "@storybook/preview-api": "^8.6.9",
+    "@storybook/theming": "^8.6.10",
+    "@storybook/vue3": "^8.6.9",
+    "@storybook/vue3-vite": "^8.6.0",
+    "storybook": "^8.6.0",
+    "@vitejs/plugin-vue": "5.2.1",
+    "vite": "6.3.5",
+    "vite-plugin-dts": "^4.4.0"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

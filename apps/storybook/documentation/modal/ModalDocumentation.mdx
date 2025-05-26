@@ -1,0 +1,435 @@
+# Modal Component
+
+The `@lpkitvue/modal` package provides flexible and customizable modal dialog components for Vue 3 applications. It includes standard modal dialogs and specialized filter modals optimized for form-based filtering operations.
+
+## Installation
+
+```bash
+npm install @lpkitvue/modal
+```
+
+## Features
+
+- 🚀 Smooth animations for opening and closing
+- 🎨 Customizable dimensions, styling, and behavior
+- 📱 Responsive design that works across device sizes
+- ♿ Accessibility-friendly with proper ARIA attributes and keyboard support
+- 🌐 Internationalization support with vue-i18n
+- 🔄 Two types of modals: standard and filter-specific
+
+## Basic Usage
+
+### Standard Modal
+
+The standard Modal component provides a simple and flexible dialog:
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue';
+import { Modal } from '@lpkitvue/modal';
+
+const isOpen = ref(false);
+
+const openModal = () => {
+  isOpen.value = true;
+};
+
+const closeModal = () => {
+  isOpen.value = false;
+};
+
+const handleSave = () => {
+  // Handle save logic
+  closeModal();
+};
+</script>
+
+<template>
+  <button @click="openModal">Open Modal</button>
+
+  <Modal
+    :open="isOpen"
+    title="My Modal Title"
+    :width="500"
+    :closeOnOutsideClick="true"
+    @close="closeModal"
+    @save="handleSave"
+  >
+    <p>This is the content of my modal dialog.</p>
+    <p>You can include any HTML content here.</p>
+  </Modal>
+</template>
+```
+
+### Filter Modal
+
+The FilterModal component is specifically designed for filter operations:
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue';
+import { FilterModal } from '@lpkitvue/modal';
+import type { FormItemProps } from '@lpkitvue/form';
+
+const isOpen = ref(false);
+
+const filterFormItems: FormItemProps[] = [
+  {
+    name: 'category',
+    label: 'Category',
+    item: 'select',
+    required: false,
+    visible: true,
+    options: [
+      { label: 'All Categories', code: '' },
+      { label: 'Electronics', code: 'electronics' },
+      { label: 'Clothing', code: 'clothing' },
+      { label: 'Books', code: 'books' },
+    ],
+  },
+  {
+    name: 'priceRange',
+    label: 'Price Range',
+    item: 'range',
+    required: false,
+    visible: true,
+    min: 0,
+    max: 1000,
+  },
+  {
+    name: 'inStock',
+    label: 'In Stock Only',
+    item: 'checkbox',
+    required: false,
+    visible: true,
+  },
+];
+
+const initialValues = {
+  category: '',
+  priceRange: [0, 1000],
+  inStock: false,
+};
+
+const openFilterModal = () => {
+  isOpen.value = true;
+};
+
+const closeFilterModal = () => {
+  isOpen.value = false;
+};
+
+const applyFilters = (values) => {
+  console.log('Filters applied:', values);
+  closeFilterModal();
+};
+
+const clearFilters = () => {
+  console.log('Filters cleared');
+};
+</script>
+
+<template>
+  <button @click="openFilterModal">Open Filters</button>
+
+  <FilterModal
+    :open="isOpen"
+    title="Filter Products"
+    :formItems="filterFormItems"
+    :width="30"
+    :initialValues="initialValues"
+    @close="closeFilterModal"
+    @save="applyFilters"
+    @clear="clearFilters"
+  />
+</template>
+```
+
+## Modal Component API
+
+### Props
+
+| Prop                  | Type               | Default     | Description                                                             |
+| --------------------- | ------------------ | ----------- | ----------------------------------------------------------------------- |
+| `open`                | `boolean`          | `required`  | Controls visibility of the modal                                        |
+| `title`               | `string`           | `required`  | Title displayed in the modal header                                     |
+| `width`               | `number \| string` | `500`       | Width of the modal (number for percentage, string for explicit values)  |
+| `height`              | `number \| string` | `undefined` | Height of the modal (number for percentage, string for explicit values) |
+| `closeOnOutsideClick` | `boolean`          | `true`      | Whether clicking outside the modal closes it                            |
+| `closeOnEscape`       | `boolean`          | `true`      | Whether pressing the Escape key closes the modal                        |
+| `customClass`         | `string`           | `''`        | Additional CSS class for styling the modal                              |
+
+### Events
+
+| Event   | Parameters | Description                             |
+| ------- | ---------- | --------------------------------------- |
+| `close` | none       | Emitted when the modal is closed        |
+| `save`  | none       | Emitted when the save button is clicked |
+
+### Slots
+
+| Slot      | Description                    |
+| --------- | ------------------------------ |
+| `default` | Main content area of the modal |
+
+## FilterModal Component API
+
+### Props
+
+| Prop            | Type                  | Default    | Description                                      |
+| --------------- | --------------------- | ---------- | ------------------------------------------------ |
+| `open`          | `boolean`             | `required` | Controls visibility of the modal                 |
+| `title`         | `string`              | `required` | Title displayed in the modal header              |
+| `formItems`     | `FormItemProps[]`     | `required` | Form configuration for the filter form           |
+| `width`         | `number`              | `30`       | Width of the modal as a percentage of the screen |
+| `customClass`   | `string`              | `''`       | Additional CSS class for styling                 |
+| `closeOnEscape` | `boolean`             | `true`     | Whether pressing the Escape key closes the modal |
+| `initialValues` | `Record<string, any>` | `{}`       | Initial values for the form fields               |
+
+### Events
+
+| Event   | Parameters                    | Description                                               |
+| ------- | ----------------------------- | --------------------------------------------------------- |
+| `close` | none                          | Emitted when the modal is closed                          |
+| `save`  | `values: Record<string, any>` | Emitted with form values when the apply button is clicked |
+| `clear` | none                          | Emitted when the clear button is clicked                  |
+
+### Slots
+
+| Slot      | Description                            |
+| --------- | -------------------------------------- |
+| `header`  | Additional content for the header area |
+| `default` | Additional content below the form      |
+
+## Styling
+
+Both modal components come with default styling that can be customized using the `customClass` prop or by targeting specific classes:
+
+### Standard Modal
+
+```css
+/* Target the modal container */
+.modal-container {
+  /* Your styles here */
+}
+
+/* Target the modal content */
+.modal-content {
+  /* Your styles here */
+}
+
+/* Target the modal header */
+.modal-header {
+  /* Your styles here */
+}
+
+/* Target the modal body */
+.modal-body {
+  /* Your styles here */
+}
+
+/* Target the modal footer */
+.modal-footer {
+  /* Your styles here */
+}
+```
+
+### Filter Modal
+
+```css
+/* Target the filter modal container */
+.filter-modal-container {
+  /* Your styles here */
+}
+
+/* Target the filter modal content */
+.filter-modal-content {
+  /* Your styles here */
+}
+
+/* Target the filter modal header */
+.filter-modal-header {
+  /* Your styles here */
+}
+
+/* Target the filter modal body */
+.filter-modal-body {
+  /* Your styles here */
+}
+
+/* Target the filter modal footer */
+.filter-modal-footer {
+  /* Your styles here */
+}
+```
+
+## Animations
+
+Both modals feature smooth animations for opening and closing:
+
+- Standard modal uses fade and slide animations
+- Filter modal uses side-sliding animations optimized for filter panels
+
+## Internationalization
+
+The modal components support internationalization through vue-i18n:
+
+```vue
+<script setup>
+import { useI18n } from 'vue-i18n';
+import { Modal } from '@lpkitvue/modal';
+
+const { t } = useI18n();
+const isOpen = ref(false);
+</script>
+
+<template>
+  <Modal :open="isOpen" :title="t('MODAL.TITLE')" @close="isOpen = false">
+    <p>{{ t('MODAL.CONTENT') }}</p>
+  </Modal>
+</template>
+```
+
+The modal components look for the following translations:
+
+```json
+{
+  "MODAL": {
+    "CLOSE": "Close",
+    "CANCEL": "Cancel",
+    "SAVE": "Save"
+  },
+  "BUTTON": {
+    "CLEAR_FILTERS": "Clear Filters",
+    "APPLY_FILTERS": "Apply Filters"
+  }
+}
+```
+
+## Accessibility
+
+Both modal components are built with accessibility in mind:
+
+- Proper ARIA attributes (`role="dialog"`, `aria-modal="true"`, `aria-label`)
+- Focus management for keyboard navigation
+- Escape key support for closing
+- Screen reader friendly structure
+
+## Advanced Usage
+
+### Custom Footer Buttons
+
+You can customize the footer actions by using your own buttons:
+
+```vue
+<template>
+  <Modal :open="isOpen" title="Custom Actions">
+    <template #default>
+      <p>Modal content goes here</p>
+    </template>
+
+    <template #footer>
+      <div class="flex justify-end gap-2">
+        <button @click="handleCancel" class="btn btn-light">Back</button>
+        <button @click="handleNext" class="btn btn-primary">Continue</button>
+      </div>
+    </template>
+  </Modal>
+</template>
+```
+
+### Nested Modals
+
+You can create complex workflows with nested modals:
+
+```vue
+<template>
+  <Modal :open="isMainModalOpen" title="Main Modal" @close="closeMainModal">
+    <p>This is the main modal content.</p>
+    <button @click="openNestedModal">Open Nested Modal</button>
+
+    <Modal :open="isNestedModalOpen" title="Nested Modal" @close="closeNestedModal">
+      <p>This is a nested modal.</p>
+    </Modal>
+  </Modal>
+</template>
+```
+
+### Form Validation
+
+Use the FilterModal component with validation:
+
+```vue
+<script setup>
+import { FilterModal } from '@lpkitvue/modal';
+
+const formItems = [
+  {
+    name: 'email',
+    label: 'Email Address',
+    item: 'input',
+    itemType: 'email',
+    required: true,
+    visible: true,
+    rules: 'required|email',
+  },
+  // More form items...
+];
+</script>
+
+<template>
+  <FilterModal :open="isOpen" title="Filter with Validation" :formItems="formItems" @save="handleValidatedForm" />
+</template>
+```
+
+## Best Practices
+
+1. **Use appropriate modal type**: Use standard Modal for general content and FilterModal specifically for filtering operations
+
+2. **Keep modals focused**: Each modal should have a single, clear purpose
+
+3. **Provide clear actions**: Label buttons clearly so users understand what will happen
+
+4. **Handle closing properly**: Always handle the `close` event to update your open state
+
+5. **Use appropriate dimensions**: Size modals appropriately for their content and the device
+
+6. **Consider mobile users**: Ensure modals are responsive and usable on smaller screens
+
+7. **Maintain accessibility**: Keep focus management and ARIA attributes intact
+
+## Browser Support
+
+The modal components are compatible with all modern browsers:
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## Dependencies
+
+The `@lpkitvue/modal` package has the following dependencies:
+
+- Vue 3.5.13 or higher (peer dependency)
+- vue-i18n 11 (peer dependency)
+- `@lpkitvue/button` (for footer actions)
+- `@lpkitvue/font-icon` (for icons)
+- `@lpkitvue/form` (for FilterModal)
+
+## TypeScript Support
+
+The package includes TypeScript definitions:
+
+```typescript
+import { Modal, FilterModal } from '@lpkitvue/modal';
+import type { ModalProps, FilterModalProps } from '@lpkitvue/modal';
+
+// Example typing
+const modalConfig: ModalProps = {
+  open: true,
+  title: 'TypeScript Modal',
+  width: 600,
+  closeOnOutsideClick: true,
+};
+```
