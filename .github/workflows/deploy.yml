@@ -46,13 +46,6 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Build packages
-        run: |
-          echo "Building packages..."
-          npm run build:packages
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: Build Documentation (VitePress)
         run: |
           echo "Building VitePress documentation..."

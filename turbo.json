@@ -32,20 +32,7 @@
       ],
       "env": ["NODE_ENV", "GITHUB_TOKEN", "NPM_TOKEN"]
     },
-    "build:packages": {
-      "dependsOn": ["^build:packages"],
-      "inputs": [
-        "lib/**",
-        "src/**",
-        "package.json",
-        "tsconfig.json",
-        "vite.config.ts"
-      ],
-      "outputs": ["dist/**"],
-      "env": ["NODE_ENV"]
-    },
     "docs:build": {
-      "dependsOn": ["build:packages"],
       "inputs": [
         "**/*.md",
         "**/*.vue",
@@ -57,7 +44,6 @@
       "env": ["NODE_ENV", "__VUE_PROD_DEVTOOLS__"]
     },
     "storybook:build": {
-      "dependsOn": ["build:packages"],
       "inputs": [
         "**/*.stories.@(js|jsx|ts|tsx|mdx)",
         "**/*.story.@(js|jsx|ts|tsx|mdx)",
@@ -81,7 +67,6 @@
     "docs:dev": {
       "cache": false,
       "persistent": true,
-      "dependsOn": ["build:packages"],
       "inputs": [
         "**/*.md",
         "**/*.vue",
@@ -92,7 +77,6 @@
     "storybook:dev": {
       "cache": false,
       "persistent": true,
-      "dependsOn": ["build:packages"],
       "inputs": [
         "**/*.stories.@(js|jsx|ts|tsx|mdx)",
         ".storybook/**",
@@ -106,8 +90,7 @@
         ".eslintrc*",
         "eslint.config.*"
       ],
-      "outputs": [],
-      "dependsOn": ["^build:packages"]
+      "outputs": []
     },
     "lint:fix": {
       "inputs": [
@@ -124,8 +107,7 @@
         "tsconfig.json",
         "**/*.d.ts"
       ],
-      "outputs": [],
-      "dependsOn": ["^build:packages"]
+      "outputs": []
     },
     "test": {
       "inputs": [
@@ -138,8 +120,7 @@
       "outputs": [
         "coverage/**",
         ".nyc_output/**"
-      ],
-      "dependsOn": ["build:packages"]
+      ]
     },
     "test:watch": {
       "cache": false,
