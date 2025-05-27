@@ -51,9 +51,6 @@
     "format": "prettier --write \"**/*.{ts,tsx,vue,md,json}\" --ignore-path .gitignore",
     "format:check": "prettier --check \"**/*.{ts,tsx,vue,md,json}\" --ignore-path .gitignore",
     "preview": "turbo run preview",
-    "changeset": "changeset",
-    "changeset:version": "changeset version",
-    "changeset:publish": "changeset publish",
     "preinstall": "npx only-allow npm",
     "postinstall": "husky install || exit 0",
     "prepare": "husky install || exit 0"

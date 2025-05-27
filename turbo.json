@@ -158,17 +158,6 @@
       "persistent": true,
       "dependsOn": ["build"],
       "env": ["NODE_ENV", "PORT"]
-    },
-    "publish": {
-      "dependsOn": ["build", "lint", "test"],
-      "inputs": [
-        "dist/**",
-        "package.json",
-        "README.md"
-      ],
-      "outputs": [],
-      "cache": false,
-      "env": ["NPM_TOKEN", "NODE_AUTH_TOKEN"]
     }
   },
   "remoteCache": {
