@@ -45,8 +45,16 @@
     },
     "storybook:build": {
       "inputs": [
-        "**/*.stories.@(js|jsx|ts|tsx|mdx)",
-        "**/*.story.@(js|jsx|ts|tsx|mdx)",
+        "**/*.stories.js",
+        "**/*.stories.jsx",
+        "**/*.stories.ts",
+        "**/*.stories.tsx",
+        "**/*.stories.mdx",
+        "**/*.story.js",
+        "**/*.story.jsx",
+        "**/*.story.ts",
+        "**/*.story.tsx",
+        "**/*.story.mdx",
         ".storybook/**",
         "lib/**",
         "src/**",
@@ -78,7 +86,11 @@
       "cache": false,
       "persistent": true,
       "inputs": [
-        "**/*.stories.@(js|jsx|ts|tsx|mdx)",
+        "**/*.stories.js",
+        "**/*.stories.jsx",
+        "**/*.stories.ts",
+        "**/*.stories.tsx",
+        "**/*.stories.mdx",
         ".storybook/**",
         "lib/**"
       ],

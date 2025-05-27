@@ -11,7 +11,7 @@ function getAbsolutePath(value) {
 const config = {
   stories: [
     "../documentation/**/*.mdx",
-    "../packages/**/stories/*.stories.@(js|jsx|ts|tsx)",
+    "../documentation/**/*.stories.@(js|jsx|ts|tsx|mjs|cjs)",
   ],
   addons: [
     getAbsolutePath("@storybook/addon-actions"),
@@ -29,7 +29,6 @@ const config = {
         },
       },
     },
-    'storybook-addon-breakpoints',
     '@storybook/addon-a11y',
     '@storybook/addon-coverage',
   ],
