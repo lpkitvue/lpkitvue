@@ -40,8 +40,6 @@
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
     "type-check": "turbo run type-check",
-    "test": "turbo run test",
-    "test:watch": "turbo run test:watch",
     "clean": "turbo run clean && rimraf node_modules/.cache",
     "clean:all": "npm run clean && rimraf **/node_modules **/dist **/.turbo",
     "format": "prettier --write \"**/*.{ts,tsx,vue,md,json}\" --ignore-path .gitignore",
